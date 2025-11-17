@@ -1,0 +1,62 @@
+[
+  {
+    "name": "长安",
+    "coordinates": [108.93, 34.27],
+    "importance": 100,
+    "description": "古代丝绸之路的起点，汉唐都城"
+  },
+  {
+    "name": "敦煌",
+    "coordinates": [94.66, 40.14],
+    "importance": 90,
+    "description": "丝路重镇，佛教艺术宝库"
+  },
+  {
+    "name": "喀什",
+    "coordinates": [75.98, 39.47],
+    "importance": 85,
+    "description": "西域重镇，东西文化交汇点"
+  },
+  {
+    "name": "撒马尔罕",
+    "coordinates": [66.97, 39.65],
+    "importance": 95,
+    "description": "中亚古城，丝路明珠"
+  },
+  {
+    "name": "巴格达",
+    "coordinates": [44.36, 33.31],
+    "importance": 90,
+    "description": "阿拉伯帝国首都，文化中心"
+  },
+  {
+    "name": "大马士革",
+    "coordinates": [36.29, 33.51],
+    "importance": 80,
+    "description": "古老商业城市"
+  },
+  {
+    "name": "君士坦丁堡",
+    "coordinates": [28.98, 41.01],
+    "importance": 95,
+    "description": "拜占庭帝国首都，东西方桥梁"
+  },
+  {
+    "name": "罗马",
+    "coordinates": [12.50, 41.90],
+    "importance": 100,
+    "description": "古罗马帝国首都，丝路终点"
+  },
+  {
+    "name": "广州",
+    "coordinates": [113.26, 23.13],
+    "importance": 85,
+    "description": "海上丝绸之路重要港口"
+  },
+  {
+    "name": "泉州",
+    "coordinates": [118.67, 24.87],
+    "importance": 88,
+    "description": "宋元时期东方第一大港"
+  }
+]

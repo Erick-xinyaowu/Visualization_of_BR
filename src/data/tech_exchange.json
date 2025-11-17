@@ -1,0 +1,114 @@
+{
+  "nodes": [
+    {
+      "id": "china",
+      "name": "中国",
+      "category": "核心国家",
+      "value": 100,
+      "techFields": ["人工智能", "5G", "高铁", "新能源"]
+    },
+    {
+      "id": "russia",
+      "name": "俄罗斯",
+      "category": "主要伙伴",
+      "value": 85,
+      "techFields": ["航空航天", "核能", "军工"]
+    },
+    {
+      "id": "india",
+      "name": "印度",
+      "category": "主要伙伴",
+      "value": 75,
+      "techFields": ["软件", "制药", "航天"]
+    },
+    {
+      "id": "pakistan",
+      "name": "巴基斯坦",
+      "category": "亚太地区",
+      "value": 60,
+      "techFields": ["基建", "能源"]
+    },
+    {
+      "id": "singapore",
+      "name": "新加坡",
+      "category": "亚太地区",
+      "value": 70,
+      "techFields": ["金融科技", "生物科技"]
+    },
+    {
+      "id": "malaysia",
+      "name": "马来西亚",
+      "category": "亚太地区",
+      "value": 55,
+      "techFields": ["电子", "棕榈油加工"]
+    },
+    {
+      "id": "thailand",
+      "name": "泰国",
+      "category": "亚太地区",
+      "value": 50,
+      "techFields": ["农业", "旅游科技"]
+    },
+    {
+      "id": "turkey",
+      "name": "土耳其",
+      "category": "中东地区",
+      "value": 65,
+      "techFields": ["基建", "纺织"]
+    },
+    {
+      "id": "egypt",
+      "name": "埃及",
+      "category": "中东地区",
+      "value": 45,
+      "techFields": ["农业", "能源"]
+    },
+    {
+      "id": "saudi",
+      "name": "沙特阿拉伯",
+      "category": "中东地区",
+      "value": 55,
+      "techFields": ["石油化工", "新能源"]
+    },
+    {
+      "id": "italy",
+      "name": "意大利",
+      "category": "欧洲地区",
+      "value": 70,
+      "techFields": ["制造业", "设计"]
+    },
+    {
+      "id": "germany",
+      "name": "德国",
+      "category": "欧洲地区",
+      "value": 80,
+      "techFields": ["汽车", "工业4.0"]
+    },
+    {
+      "id": "france",
+      "name": "法国",
+      "category": "欧洲地区",
+      "value": 75,
+      "techFields": ["航空", "核能", "奢侈品"]
+    }
+  ],
+  "links": [
+    { "source": "china", "target": "russia", "value": 90, "projects": ["中俄东线天然气管道", "联合空间站"] },
+    { "source": "china", "target": "india", "value": 70, "projects": ["软件外包", "药品进口"] },
+    { "source": "china", "target": "pakistan", "value": 85, "projects": ["中巴经济走廊", "瓜达尔港"] },
+    { "source": "china", "target": "singapore", "value": 75, "projects": ["数字经济合作", "智慧城市"] },
+    { "source": "china", "target": "malaysia", "value": 65, "projects": ["东海岸铁路", "数字经济"] },
+    { "source": "china", "target": "thailand", "value": 60, "projects": ["中泰铁路", "农业合作"] },
+    { "source": "china", "target": "turkey", "value": 55, "projects": ["基础设施", "电信"] },
+    { "source": "china", "target": "egypt", "value": 50, "projects": ["苏伊士运河区", "新首都建设"] },
+    { "source": "china", "target": "saudi", "value": 60, "projects": ["能源合作", "炼油厂"] },
+    { "source": "china", "target": "italy", "value": 70, "projects": ["港口合作", "文化交流"] },
+    { "source": "china", "target": "germany", "value": 80, "projects": ["智能制造", "新能源汽车"] },
+    { "source": "china", "target": "france", "value": 75, "projects": ["核电", "航空航天"] },
+    { "source": "russia", "target": "turkey", "value": 45, "projects": ["天然气管道", "核电站"] },
+    { "source": "india", "target": "singapore", "value": 50, "projects": ["IT服务", "金融科技"] },
+    { "source": "pakistan", "target": "saudi", "value": 40, "projects": ["能源合作"] },
+    { "source": "singapore", "target": "malaysia", "value": 55, "projects": ["跨境电商", "物流"] },
+    { "source": "germany", "target": "france", "value": 70, "projects": ["欧盟合作项目"] }
+  ]
+}
