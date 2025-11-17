@@ -1,218 +1,287 @@
 <template>
-  <div class="home-container">
-    <section class="hero">
-      <h1 class="hero-title">🌏 丝路智汇</h1>
-      <h2 class="hero-subtitle">一带一路中的文化与科技互鉴可视化</h2>
-      <p class="hero-description">
-        探索古今丝绸之路上的文化传播与科技交流，通过数据可视化展现千年文明的交汇与融合
-      </p>
-      <div class="hero-buttons">
-        <router-link to="/map" class="btn btn-primary">开始探索</router-link>
-        <router-link to="/about" class="btn btn-secondary">了解更多</router-link>
+  <div class="home-page fade-in-up">
+    <!-- Hero 区域 -->
+    <a-card class="hero-card" :bordered="false">
+      <div class="hero-content">
+        <a-typography-title :level="1" class="hero-title">
+          🌏 丝路智汇
+        </a-typography-title>
+        <a-typography-title :level="2" class="hero-subtitle" :style="{ color: 'var(--accent-gold)' }">
+          一带一路中的文化与科技互鉴可视化
+        </a-typography-title>
+        <a-typography-paragraph class="hero-description">
+          探索古今丝绸之路上的文化传播与科技交流，通过数据可视化展现千年文明的交汇与融合。
+          从张骞出使西域到"一带一路"倡议，见证东西方文明交流互鉴的辉煌历程。
+        </a-typography-paragraph>
+        <a-space :size="16" class="hero-buttons">
+          <a-button type="primary" size="large" @click="$router.push('/map')">
+            <template #icon><RocketOutlined /></template>
+            开始探索
+          </a-button>
+          <a-button size="large" @click="$router.push('/about')">
+            <template #icon><BookOutlined /></template>
+            了解更多
+          </a-button>
+        </a-space>
       </div>
-    </section>
+    </a-card>
 
-    <section class="features">
-      <h3 class="section-title">核心功能</h3>
-      <div class="feature-grid">
-        <div class="feature-card" @click="$router.push('/map')">
-          <div class="feature-icon">🗺️</div>
-          <h4>地理可视化</h4>
-          <p>展示丝绸之路的地理路线、重要城市节点和贸易往来</p>
-        </div>
-        <div class="feature-card" @click="$router.push('/network')">
-          <div class="feature-icon">🔗</div>
-          <h4>科技交流网络</h4>
-          <p>呈现一带一路国家间的科技合作与知识交流网络</p>
-        </div>
-        <div class="feature-card" @click="$router.push('/timeline')">
-          <div class="feature-icon">📈</div>
-          <h4>时间轴演进</h4>
-          <p>追溯历史发展脉络，展现文化与科技的时空演变</p>
-        </div>
-      </div>
-    </section>
+    <!-- 核心功能 -->
+    <div class="features-section">
+      <a-typography-title :level="2" class="section-title">
+        核心功能
+      </a-typography-title>
+      <a-row :gutter="[24, 24]">
+        <a-col :xs="24" :sm="12" :lg="8">
+          <a-card hoverable class="feature-card" @click="$router.push('/map')">
+            <div class="feature-icon">🗺️</div>
+            <a-typography-title :level="3" class="feature-title">地理可视化</a-typography-title>
+            <a-typography-paragraph class="feature-description">
+              展示丝绸之路的地理路线、重要城市节点和贸易往来，追溯历史商道的足迹
+            </a-typography-paragraph>
+            <a-tag color="blue">地理信息</a-tag>
+            <a-tag color="cyan">路线图</a-tag>
+          </a-card>
+        </a-col>
+        <a-col :xs="24" :sm="12" :lg="8">
+          <a-card hoverable class="feature-card" @click="$router.push('/network')">
+            <div class="feature-icon">🔗</div>
+            <a-typography-title :level="3" class="feature-title">科技交流网络</a-typography-title>
+            <a-typography-paragraph class="feature-description">
+              呈现一带一路国家间的科技合作与知识交流网络，展现现代丝路的新篇章
+            </a-typography-paragraph>
+            <a-tag color="green">网络图</a-tag>
+            <a-tag color="orange">数据分析</a-tag>
+          </a-card>
+        </a-col>
+        <a-col :xs="24" :sm="12" :lg="8">
+          <a-card hoverable class="feature-card" @click="$router.push('/timeline')">
+            <div class="feature-icon">📈</div>
+            <a-typography-title :level="3" class="feature-title">时间轴演进</a-typography-title>
+            <a-typography-paragraph class="feature-description">
+              追溯历史发展脉络，展现文化与科技的时空演变，从古至今的文明对话
+            </a-typography-paragraph>
+            <a-tag color="purple">时间轴</a-tag>
+            <a-tag color="magenta">历史</a-tag>
+          </a-card>
+        </a-col>
+      </a-row>
+    </div>
 
-    <section class="stats">
-      <div class="stat-item">
-        <h3>65+</h3>
-        <p>参与国家</p>
-      </div>
-      <div class="stat-item">
-        <h3>2000+</h3>
-        <p>历史数据点</p>
-      </div>
-      <div class="stat-item">
-        <h3>100+</h3>
-        <p>重要城市节点</p>
-      </div>
-      <div class="stat-item">
-        <h3>千年</h3>
-        <p>文明交流史</p>
-      </div>
-    </section>
+    <!-- 统计数据 -->
+    <a-card class="stats-card" :bordered="false">
+      <a-row :gutter="[32, 32]">
+        <a-col :xs="12" :sm="6">
+          <div class="stat-item">
+            <a-statistic 
+              :value="65" 
+              suffix="+"
+              :value-style="{ color: 'var(--accent-gold)', fontSize: '2.5rem', fontWeight: 700 }"
+            >
+              <template #title>
+                <span style="color: var(--text-secondary); font-size: 1rem;">参与国家</span>
+              </template>
+            </a-statistic>
+          </div>
+        </a-col>
+        <a-col :xs="12" :sm="6">
+          <div class="stat-item">
+            <a-statistic 
+              :value="2000" 
+              suffix="+"
+              :value-style="{ color: 'var(--accent-gold)', fontSize: '2.5rem', fontWeight: 700 }"
+            >
+              <template #title>
+                <span style="color: var(--text-secondary); font-size: 1rem;">历史数据点</span>
+              </template>
+            </a-statistic>
+          </div>
+        </a-col>
+        <a-col :xs="12" :sm="6">
+          <div class="stat-item">
+            <a-statistic 
+              :value="100" 
+              suffix="+"
+              :value-style="{ color: 'var(--accent-gold)', fontSize: '2.5rem', fontWeight: 700 }"
+            >
+              <template #title>
+                <span style="color: var(--text-secondary); font-size: 1rem;">重要城市节点</span>
+              </template>
+            </a-statistic>
+          </div>
+        </a-col>
+        <a-col :xs="12" :sm="6">
+          <div class="stat-item">
+            <a-statistic 
+              title="文明交流史" 
+              value="千年"
+              :value-style="{ color: 'var(--accent-gold)', fontSize: '2.5rem', fontWeight: 700 }"
+            >
+              <template #title>
+                <span style="color: var(--text-secondary); font-size: 1rem;">文明交流史</span>
+              </template>
+            </a-statistic>
+          </div>
+        </a-col>
+      </a-row>
+    </a-card>
+
+    <!-- 项目亮点 -->
+    <a-card class="highlights-card" :bordered="false">
+      <a-typography-title :level="3" :style="{ color: 'var(--accent-gold)', marginBottom: '24px' }">
+        项目亮点
+      </a-typography-title>
+      <a-row :gutter="[16, 16]">
+        <a-col :xs="24" :sm="12">
+          <div class="highlight-item">
+            <CheckCircleOutlined :style="{ fontSize: '24px', color: 'var(--accent-gold)', marginRight: '12px' }" />
+            <span>基于 Vue 3 + Vite 现代化技术栈</span>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="12">
+          <div class="highlight-item">
+            <CheckCircleOutlined :style="{ fontSize: '24px', color: 'var(--accent-gold)', marginRight: '12px' }" />
+            <span>使用 ECharts 5 强大可视化引擎</span>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="12">
+          <div class="highlight-item">
+            <CheckCircleOutlined :style="{ fontSize: '24px', color: 'var(--accent-gold)', marginRight: '12px' }" />
+            <span>Ant Design Vue 企业级 UI 设计</span>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="12">
+          <div class="highlight-item">
+            <CheckCircleOutlined :style="{ fontSize: '24px', color: 'var(--accent-gold)', marginRight: '12px' }" />
+            <span>响应式设计，多端适配</span>
+          </div>
+        </a-col>
+      </a-row>
+    </a-card>
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-
-onMounted(() => {
-  console.log('Home page mounted')
-})
+import { RocketOutlined, BookOutlined, CheckCircleOutlined } from '@ant-design/icons-vue'
 </script>
 
 <style scoped>
-.home-container {
+.home-page {
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.hero {
+/* Hero 卡片 */
+.hero-card {
+  margin-bottom: 32px;
+  background: linear-gradient(135deg, var(--bg-dark-2) 0%, var(--bg-dark-3) 100%);
+}
+
+.hero-content {
   text-align: center;
-  padding: 4rem 2rem;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-  border-radius: 16px;
-  margin-bottom: 3rem;
+  padding: 3rem 2rem;
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  color: #667eea;
-  margin-bottom: 1rem;
+  font-size: 3.5rem !important;
+  color: var(--text-primary) !important;
+  margin-bottom: 1rem !important;
+  font-family: Montserrat, "Source Han Serif CN", serif !important;
   animation: fadeInDown 0.8s ease;
 }
 
 .hero-subtitle {
-  font-size: 1.8rem;
-  color: #764ba2;
-  margin-bottom: 1.5rem;
+  font-size: 1.8rem !important;
+  margin-bottom: 1.5rem !important;
   animation: fadeInDown 1s ease;
 }
 
 .hero-description {
-  font-size: 1.2rem;
-  color: #555;
+  font-size: 1.1rem !important;
+  color: var(--text-secondary) !important;
   max-width: 800px;
-  margin: 0 auto 2rem;
-  line-height: 1.8;
+  margin: 0 auto 2rem !important;
+  line-height: 1.8 !important;
   animation: fadeInUp 1.2s ease;
 }
 
 .hero-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
   animation: fadeInUp 1.4s ease;
 }
 
-.btn {
-  padding: 1rem 2rem;
-  font-size: 1.1rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: #667eea;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #5568d3;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.btn-secondary {
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-}
-
-.btn-secondary:hover {
-  background: #667eea;
-  color: white;
-  transform: translateY(-2px);
+/* 核心功能区 */
+.features-section {
+  margin: 3rem 0;
 }
 
 .section-title {
-  font-size: 2rem;
   text-align: center;
-  color: #333;
-  margin-bottom: 2rem;
-}
-
-.features {
-  margin: 4rem 0;
-}
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  color: var(--accent-gold) !important;
+  margin-bottom: 2rem !important;
+  font-size: 2rem !important;
 }
 
 .feature-card {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 100%;
   text-align: center;
-  transition: all 0.3s;
-  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
+.feature-card :deep(.ant-card-body) {
+  padding: 2rem;
 }
 
 .feature-icon {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
+  display: block;
 }
 
-.feature-card h4 {
-  font-size: 1.5rem;
-  color: #667eea;
-  margin-bottom: 1rem;
+.feature-title {
+  font-size: 1.3rem !important;
+  color: var(--accent-gold) !important;
+  margin-bottom: 1rem !important;
 }
 
-.feature-card p {
-  color: #666;
-  line-height: 1.6;
+.feature-description {
+  color: var(--text-secondary) !important;
+  line-height: 1.8 !important;
+  margin-bottom: 1rem !important;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin: 4rem 0;
-  padding: 3rem 2rem;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* 统计卡片 */
+.stats-card {
+  margin: 3rem 0;
+  background: linear-gradient(135deg, var(--accent-blue) 0%, #2a5a8f 100%);
 }
 
 .stat-item {
   text-align: center;
+  padding: 1rem;
 }
 
-.stat-item h3 {
-  font-size: 2.5rem;
-  color: #667eea;
-  margin-bottom: 0.5rem;
+/* 亮点卡片 */
+.highlights-card {
+  margin: 2rem 0;
 }
 
-.stat-item p {
-  font-size: 1.1rem;
-  color: #666;
+.highlight-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  background: var(--bg-dark-3);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 15px;
+  transition: all 0.3s ease;
 }
 
+.highlight-item:hover {
+  background: rgba(196, 151, 91, 0.1);
+  transform: translateX(8px);
+}
+
+/* 动画 */
 @keyframes fadeInDown {
   from {
     opacity: 0;
@@ -232,6 +301,21 @@ onMounted(() => {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem !important;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.3rem !important;
+  }
+  
+  .hero-content {
+    padding: 2rem 1rem;
   }
 }
 </style>

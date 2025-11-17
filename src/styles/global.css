@@ -1,0 +1,309 @@
+/* 丝路智汇 - 全局样式 */
+
+:root {
+  --bg-dark: #0D1B2A;
+  --bg-dark-2: #1B263B;
+  --bg-dark-3: #2C3E50;
+  --accent-gold: #C4975B;
+  --accent-blue: #1E3F66;
+  --text-primary: #EAEAEA;
+  --text-secondary: #B0B0B0;
+  --border-color: rgba(196, 151, 91, 0.2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: "Source Han Sans CN", "Noto Sans SC", Montserrat, -apple-system, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-dark-2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d4a76b;
+}
+
+/* 页面容器 */
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  min-height: calc(100vh - 180px);
+}
+
+/* 页面标题 */
+.page-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+  font-family: Montserrat, "Source Han Serif CN", serif;
+  position: relative;
+  display: inline-block;
+}
+
+.page-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
+  border-radius: 2px;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+/* 卡片统一样式 */
+.ant-card {
+  background: var(--bg-dark-2) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.ant-card:hover {
+  border-color: var(--accent-gold) !important;
+  box-shadow: 0 8px 24px rgba(196, 151, 91, 0.2) !important;
+  transform: translateY(-4px);
+}
+
+.ant-card-head {
+  border-bottom: 1px solid var(--border-color) !important;
+  color: var(--accent-gold) !important;
+  font-size: 1.3rem !important;
+  font-weight: 600 !important;
+}
+
+.ant-card-body {
+  color: var(--text-primary) !important;
+}
+
+/* 图表容器 */
+.chart-wrapper {
+  width: 100%;
+  min-height: 500px;
+  margin: 1rem 0;
+  background: var(--bg-dark-3);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* 按钮样式 */
+.ant-btn-primary {
+  background: var(--accent-blue) !important;
+  border-color: var(--accent-blue) !important;
+  font-weight: 500;
+  height: 40px;
+  padding: 0 24px;
+  font-size: 15px;
+}
+
+.ant-btn-primary:hover {
+  background: #2a5a8f !important;
+  border-color: #2a5a8f !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30, 63, 102, 0.4);
+}
+
+/* 导航菜单 */
+.ant-menu-dark {
+  background: transparent !important;
+}
+
+.ant-menu-dark .ant-menu-item {
+  color: var(--text-primary) !important;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.ant-menu-dark .ant-menu-item:hover,
+.ant-menu-dark .ant-menu-item-selected {
+  background: rgba(196, 151, 91, 0.1) !important;
+  color: var(--accent-gold) !important;
+}
+
+.ant-menu-dark .ant-menu-item-selected::after {
+  border-bottom-color: var(--accent-gold) !important;
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+/* 统计卡片 */
+.stat-card {
+  text-align: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--bg-dark-2) 0%, var(--bg-dark-3) 100%);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(196, 151, 91, 0.15);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  font-family: Montserrat, sans-serif;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-top: 0.5rem;
+}
+
+/* 特性卡片 */
+.feature-card {
+  padding: 2rem;
+  background: var(--bg-dark-2);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+}
+
+.feature-card:hover {
+  border-color: var(--accent-gold);
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(196, 151, 91, 0.2);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  color: var(--accent-gold);
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.feature-description {
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Typography 增强 */
+.ant-typography {
+  color: var(--text-primary) !important;
+}
+
+.ant-typography h1,
+.ant-typography h2,
+.ant-typography h3 {
+  color: var(--accent-gold) !important;
+  font-family: Montserrat, "Source Han Serif CN", serif;
+}
+
+/* 描述列表 */
+.ant-descriptions-item-label {
+  color: var(--accent-gold) !important;
+  font-weight: 600;
+}
+
+.ant-descriptions-item-content {
+  color: var(--text-primary) !important;
+}
+
+/* 标签样式 */
+.ant-tag {
+  background: rgba(196, 151, 91, 0.1) !important;
+  border-color: var(--accent-gold) !important;
+  color: var(--accent-gold) !important;
+  padding: 4px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+/* 加载状态 */
+.ant-spin {
+  color: var(--accent-gold) !important;
+}
+
+/* Footer 样式 */
+.site-footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg-dark-2);
+  border-top: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .page-container {
+    padding: 16px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+  }
+  
+  .chart-wrapper {
+    min-height: 350px;
+  }
+}

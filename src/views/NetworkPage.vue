@@ -1,16 +1,27 @@
 <template>
-  <div class="page-container">
-    <h2 class="page-title">🔗 一带一路科技交流网络</h2>
-    <p class="page-subtitle">展现国家间的科技合作与知识交流关系</p>
-    
-    <div class="chart-wrapper">
-      <TechExchangeGraph />
-    </div>
+  <div class="network-page">
+    <a-card title="🔗 一带一路科技交流网络" class="page-card" :bordered="false">
+      <template #extra>
+        <a-space>
+          <a-tag color="green">网络图</a-tag>
+          <a-tag color="orange">数据分析</a-tag>
+        </a-space>
+      </template>
+      
+      <a-typography-paragraph class="page-description">
+        展现国家间的科技合作与知识交流关系，揭示现代丝路的科技互鉴网络
+      </a-typography-paragraph>
+      
+      <div class="chart-wrapper">
+        <TechExchangeGraph />
+      </div>
+    </a-card>
 
-    <div class="flow-section">
-      <h3>科技交流流向分析</h3>
-      <SankeyFlow />
-    </div>
+    <a-card title="科技交流流向分析" class="flow-card" :bordered="false">
+      <div class="chart-wrapper">
+        <SankeyFlow />
+      </div>
+    </a-card>
   </div>
 </template>
 
@@ -20,17 +31,19 @@ import SankeyFlow from '../components/SankeyFlow.vue'
 </script>
 
 <style scoped>
-.flow-section {
-  margin-top: 3rem;
-  padding: 2rem;
-  background: #f8f9fa;
-  border-radius: 12px;
+.network-page {
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-.flow-section h3 {
-  color: #667eea;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+.page-card,
+.flow-card {
+  margin-bottom: 24px;
+}
+
+.page-description {
+  font-size: 1.05rem !important;
+  color: var(--text-secondary) !important;
+  margin-bottom: 24px !important;
 }
 </style>
