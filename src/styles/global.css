@@ -1,14 +1,26 @@
-/* 丝路智汇 - 全局样式 */
+/* 丝路智汇 - 全局样式 (新中式·亮色版) */
 
 :root {
-  --bg-dark: #0D1B2A;
-  --bg-dark-2: #1B263B;
-  --bg-dark-3: #2C3E50;
-  --accent-gold: #C4975B;
-  --accent-blue: #1E3F66;
-  --text-primary: #EAEAEA;
-  --text-secondary: #B0B0B0;
-  --border-color: rgba(196, 151, 91, 0.2);
+  /* 基础背景 - 极简白/米灰 */
+  --bg-light: #F5F5F7;
+  --bg-card: #FFFFFF;
+  --bg-overlay: rgba(255, 255, 255, 0.85);
+  
+  /* 丝路主题色 - 现代诠释 */
+  --accent-gold: #B49356; /* 沉稳的香槟金 */
+  --accent-blue: #2C5578; /* 黛蓝/青花 */
+  --accent-red: #C0392B; /* 胭脂红 - 点缀 */
+  --accent-ink: #2C3E50; /* 墨色 */
+  
+  /* 文本颜色 */
+  --text-primary: #1D1D1F; /* 接近黑色的深灰 */
+  --text-secondary: #86868B; /* 浅灰 */
+  
+  /* 边框与装饰 */
+  --border-color: rgba(0, 0, 0, 0.06);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -18,147 +30,156 @@
 }
 
 body {
-  background: var(--bg-dark);
+  background-color: var(--bg-light);
   color: var(--text-primary);
-  font-family: "Source Han Sans CN", "Noto Sans SC", Montserrat, -apple-system, sans-serif;
+  /* 字体栈：优先宋体(标题)和黑体(正文) */
+  font-family: "Source Han Sans CN", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 滚动条美化 */
+/* 滚动条美化 - 极简风格 */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-dark-2);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-gold);
+  background: #D1D1D6;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d4a76b;
+  background: #AEAEB2;
 }
 
 /* 页面容器 */
 .page-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 40px 24px;
   min-height: calc(100vh - 180px);
 }
 
-/* 页面标题 */
+/* 页面标题 - 新中式排版 */
 .page-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--accent-gold);
+  color: var(--accent-ink);
   margin-bottom: 1rem;
-  font-family: Montserrat, "Source Han Serif CN", serif;
+  font-family: "Noto Serif SC", "Source Han Serif CN", serif;
   position: relative;
   display: inline-block;
-}
-
-.page-title::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -8px;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--accent-gold) 0%, transparent 100%);
-  border-radius: 2px;
+  letter-spacing: 2px;
 }
 
 .page-subtitle {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  font-weight: 400;
+  max-width: 600px;
 }
 
-/* 卡片统一样式 */
+/* 卡片统一样式 - Apple 风格 */
 .ant-card {
-  background: var(--bg-dark-2) !important;
+  background: var(--bg-card) !important;
   border: 1px solid var(--border-color) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-  transition: all 0.3s ease !important;
+  border-radius: 16px !important; /* 更大的圆角 */
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+  overflow: hidden;
 }
 
 .ant-card:hover {
-  border-color: var(--accent-gold) !important;
-  box-shadow: 0 8px 24px rgba(196, 151, 91, 0.2) !important;
   transform: translateY(-4px);
+  box-shadow: var(--shadow-md) !important;
+  border-color: rgba(180, 147, 86, 0.3) !important; /* 悬停时显示金色微光 */
 }
 
 .ant-card-head {
   border-bottom: 1px solid var(--border-color) !important;
-  color: var(--accent-gold) !important;
-  font-size: 1.3rem !important;
+  color: var(--accent-ink) !important;
+  font-size: 1.25rem !important;
   font-weight: 600 !important;
+  font-family: "Noto Serif SC", serif !important;
+  padding: 0 24px !important;
+  min-height: 64px !important;
 }
 
 .ant-card-body {
+  padding: 24px !important;
   color: var(--text-primary) !important;
 }
 
 /* 图表容器 */
 .chart-wrapper {
   width: 100%;
-  min-height: 500px;
+  min-height: 600px;
   margin: 1rem 0;
-  background: var(--bg-dark-3);
-  border-radius: 8px;
+  background: #FBFBFD; /* 极淡的灰，区分图表区 */
+  border-radius: 12px;
   padding: 1rem;
+  border: 1px solid rgba(0,0,0,0.02);
 }
 
-/* 按钮样式 */
+/* 按钮样式 - 扁平化 */
 .ant-btn-primary {
   background: var(--accent-blue) !important;
-  border-color: var(--accent-blue) !important;
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(44, 85, 120, 0.2) !important;
   font-weight: 500;
   height: 40px;
   padding: 0 24px;
-  font-size: 15px;
+  border-radius: 20px !important; /* 胶囊按钮 */
 }
 
 .ant-btn-primary:hover {
-  background: #2a5a8f !important;
-  border-color: #2a5a8f !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(30, 63, 102, 0.4);
+  background: #34628A !important;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(44, 85, 120, 0.3) !important;
 }
 
-/* 导航菜单 */
-.ant-menu-dark {
+/* 导航菜单 - 亮色适配 */
+.ant-menu-light {
   background: transparent !important;
+  border-bottom: none !important;
 }
 
-.ant-menu-dark .ant-menu-item {
-  color: var(--text-primary) !important;
+.ant-menu-light .ant-menu-item {
+  color: var(--text-secondary) !important;
   font-size: 15px;
   font-weight: 500;
+  margin: 0 4px !important;
+  border-radius: 8px;
+  transition: all 0.3s;
 }
 
-.ant-menu-dark .ant-menu-item:hover,
-.ant-menu-dark .ant-menu-item-selected {
-  background: rgba(196, 151, 91, 0.1) !important;
-  color: var(--accent-gold) !important;
+.ant-menu-light .ant-menu-item:hover {
+  color: var(--accent-blue) !important;
+  background: rgba(44, 85, 120, 0.05) !important;
 }
 
-.ant-menu-dark .ant-menu-item-selected::after {
-  border-bottom-color: var(--accent-gold) !important;
+.ant-menu-light .ant-menu-item-selected {
+  color: var(--accent-blue) !important;
+  background: rgba(44, 85, 120, 0.1) !important;
+  font-weight: 600;
+}
+
+.ant-menu-light .ant-menu-item-selected::after {
+  display: none !important; /* 去掉底部线条，改用背景色块 */
 }
 
 /* 动画效果 */
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -167,84 +188,70 @@ body {
 }
 
 .fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fade-in {
-  animation: fadeIn 0.5s ease-in;
+  animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* 统计卡片 */
 .stat-card {
   text-align: center;
   padding: 2rem;
-  background: linear-gradient(135deg, var(--bg-dark-2) 0%, var(--bg-dark-3) 100%);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
+  background: #FFFFFF;
+  border-radius: 16px;
   transition: all 0.3s ease;
 }
 
-.stat-card:hover {
-  border-color: var(--accent-gold);
-  transform: translateY(-8px);
-  box-shadow: 0 12px 24px rgba(196, 151, 91, 0.15);
-}
-
 .stat-number {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
-  color: var(--accent-gold);
-  font-family: Montserrat, sans-serif;
+  color: var(--accent-blue);
+  font-family: "Montserrat", sans-serif;
+  margin-bottom: 0.5rem;
+  letter-spacing: -1px;
 }
 
 .stat-label {
   font-size: 1rem;
   color: var(--text-secondary);
-  margin-top: 0.5rem;
+  font-weight: 500;
 }
 
 /* 特性卡片 */
 .feature-card {
   padding: 2rem;
-  background: var(--bg-dark-2);
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  background: #FFFFFF;
+  border-radius: 16px;
+  transition: all 0.4s ease;
   cursor: pointer;
   height: 100%;
+  text-align: center;
 }
 
 .feature-card:hover {
-  border-color: var(--accent-gold);
   transform: translateY(-8px);
-  box-shadow: 0 12px 32px rgba(196, 151, 91, 0.2);
+  box-shadow: var(--shadow-lg) !important;
 }
 
 .feature-icon {
   font-size: 3rem;
-  margin-bottom: 1rem;
-  display: block;
+  margin-bottom: 1.5rem;
+  color: var(--accent-gold);
+  display: inline-block;
+  padding: 16px;
+  background: rgba(180, 147, 86, 0.1);
+  border-radius: 50%;
 }
 
 .feature-title {
-  font-size: 1.5rem;
-  color: var(--accent-gold);
+  font-size: 1.4rem;
+  color: var(--accent-ink);
   margin-bottom: 1rem;
   font-weight: 600;
+  font-family: "Noto Serif SC", serif;
 }
 
 .feature-description {
   color: var(--text-secondary);
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
 /* Typography 增强 */
@@ -255,55 +262,24 @@ body {
 .ant-typography h1,
 .ant-typography h2,
 .ant-typography h3 {
-  color: var(--accent-gold) !important;
-  font-family: Montserrat, "Source Han Serif CN", serif;
-}
-
-/* 描述列表 */
-.ant-descriptions-item-label {
-  color: var(--accent-gold) !important;
-  font-weight: 600;
-}
-
-.ant-descriptions-item-content {
-  color: var(--text-primary) !important;
+  color: var(--accent-ink) !important;
+  font-family: "Noto Serif SC", serif;
 }
 
 /* 标签样式 */
 .ant-tag {
-  background: rgba(196, 151, 91, 0.1) !important;
-  border-color: var(--accent-gold) !important;
-  color: var(--accent-gold) !important;
+  border: none !important;
   padding: 4px 12px;
-  font-size: 14px;
-  border-radius: 6px;
-}
-
-/* 加载状态 */
-.ant-spin {
-  color: var(--accent-gold) !important;
+  font-size: 13px;
+  border-radius: 12px; /* 圆角标签 */
+  font-weight: 500;
 }
 
 /* Footer 样式 */
 .site-footer {
   text-align: center;
-  padding: 2rem;
-  background: var(--bg-dark-2);
+  padding: 4rem 2rem;
+  background: #FFFFFF;
   border-top: 1px solid var(--border-color);
   color: var(--text-secondary);
-}
-
-/* 响应式 */
-@media (max-width: 768px) {
-  .page-container {
-    padding: 16px;
-  }
-  
-  .page-title {
-    font-size: 1.8rem;
-  }
-  
-  .chart-wrapper {
-    min-height: 350px;
-  }
 }

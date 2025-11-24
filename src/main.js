@@ -16,7 +16,7 @@ import { use } from 'echarts/core'
 
 // 手动引入 ECharts 各模块
 import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, BarChart, ScatterChart, GraphChart, SankeyChart } from 'echarts/charts'
+import { LineChart, BarChart, ScatterChart, GraphChart, SankeyChart, LinesChart, EffectScatterChart } from 'echarts/charts'
 import {
   TitleComponent,
   TooltipComponent,
@@ -34,6 +34,8 @@ use([
   ScatterChart,
   GraphChart,
   SankeyChart,
+  LinesChart,
+  EffectScatterChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,

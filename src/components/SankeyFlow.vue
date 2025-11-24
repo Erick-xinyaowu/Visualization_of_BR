@@ -57,18 +57,28 @@ const data = {
 }
 
 const chartOption = computed(() => ({
+  backgroundColor: '#FBFBFD',
   title: {
     text: '一带一路科技交流流向',
     subtext: '从研究机构到技术领域再到实际应用',
     left: 'center',
     textStyle: {
       fontSize: 22,
-      color: '#667eea'
+      color: '#2C3E50',
+      fontFamily: '"Noto Serif SC", serif'
+    },
+    subtextStyle: {
+      color: '#86868B'
     }
   },
   tooltip: {
     trigger: 'item',
     triggerOn: 'mousemove',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderColor: '#E5E7EB',
+    textStyle: {
+      color: '#1F2937'
+    },
     formatter: (params) => {
       if (params.dataType === 'edge') {
         return `${params.data.source} → ${params.data.target}<br/>合作项目数: ${params.data.value}`
@@ -85,16 +95,36 @@ const chartOption = computed(() => ({
     },
     lineStyle: {
       color: 'gradient',
-      curveness: 0.5
+      curveness: 0.5,
+      opacity: 0.4
     },
     label: {
       fontSize: 12,
-      color: '#333'
+      color: '#333',
+      fontFamily: '"Source Han Sans CN", sans-serif'
     },
     itemStyle: {
       borderWidth: 1,
-      borderColor: '#fff'
+      borderColor: '#fff',
+      color: '#2C5578' // 默认节点颜色
     },
+    levels: [
+      {
+        depth: 0,
+        itemStyle: { color: '#C0392B' }, // 源头：红色
+        lineStyle: { color: 'source', opacity: 0.2 }
+      },
+      {
+        depth: 1,
+        itemStyle: { color: '#B49356' }, // 中间：金色
+        lineStyle: { color: 'source', opacity: 0.2 }
+      },
+      {
+        depth: 2,
+        itemStyle: { color: '#2C5578' }, // 终点：蓝色
+        lineStyle: { color: 'source', opacity: 0.2 }
+      }
+    ],
     layoutIterations: 32,
     nodeGap: 20,
     nodeWidth: 20
@@ -105,9 +135,10 @@ const chartOption = computed(() => ({
 <style scoped>
 .sankey-container {
   width: 100%;
-  background: white;
-  border-radius: 12px;
+  background: #FFFFFF;
+  border-radius: 16px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.05);
 }
 </style>

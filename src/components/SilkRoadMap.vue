@@ -1,6 +1,6 @@
 <template>
   <div class="map-container">
-    <v-chart ref="chartRef" :option="chartOption" :style="{ height: '600px', width: '100%' }" autoresize />
+    <v-chart ref="chartRef" :option="chartOption" :style="{ height: '700px', width: '100%' }" autoresize />
   </div>
 </template>
 
@@ -35,17 +35,28 @@ const routes = [
 ]
 
 const chartOption = computed(() => ({
+  backgroundColor: 'transparent',
   title: {
     text: '丝绸之路地理路线图',
     subtext: '主要贸易路线与城市节点',
     left: 'center',
+    top: 20,
     textStyle: {
       fontSize: 24,
-      color: '#667eea'
+      color: '#2C3E50',
+      fontFamily: '"Noto Serif SC", serif'
+    },
+    subtextStyle: {
+      color: '#86868B'
     }
   },
   tooltip: {
     trigger: 'item',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderColor: '#E5E7EB',
+    textStyle: {
+      color: '#1F2937'
+    },
     formatter: (params) => {
       if (params.componentSubType === 'scatter') {
         return `${params.name}<br/>重要程度: ${params.value[2]}`
@@ -58,13 +69,19 @@ const chartOption = computed(() => ({
     roam: true,
     zoom: 1.2,
     center: [60, 35],
+    label: {
+      emphasis: {
+        show: false
+      }
+    },
     itemStyle: {
-      areaColor: '#f3f3f3',
-      borderColor: '#999'
+      areaColor: '#E5E5EA', // 浅灰色陆地
+      borderColor: '#FFFFFF', // 白色边境线
+      borderWidth: 1
     },
     emphasis: {
       itemStyle: {
-        areaColor: '#e0e0e0'
+        areaColor: '#D1D1D6'
       }
     }
   },
@@ -77,7 +94,9 @@ const chartOption = computed(() => ({
         name: city.name,
         value: [...city.coord, city.value],
         itemStyle: {
-          color: '#667eea'
+          color: '#B49356', // 金色节点
+          shadowBlur: 10,
+          shadowColor: 'rgba(180, 147, 86, 0.5)'
         }
       })),
       symbolSize: (val) => val[2] / 5,
@@ -86,7 +105,9 @@ const chartOption = computed(() => ({
         formatter: '{b}',
         position: 'right',
         fontSize: 12,
-        color: '#333'
+        color: '#2C3E50',
+        fontFamily: '"Source Han Sans CN", sans-serif',
+        fontWeight: 500
       },
       emphasis: {
         label: {
@@ -102,7 +123,7 @@ const chartOption = computed(() => ({
       coordinateSystem: 'geo',
       data: routes,
       lineStyle: {
-        color: '#764ba2',
+        color: '#2C5578', // 深蓝色路线
         width: 2,
         opacity: 0.6,
         curveness: 0.2
@@ -112,7 +133,8 @@ const chartOption = computed(() => ({
         period: 6,
         trailLength: 0.1,
         symbol: 'arrow',
-        symbolSize: 8
+        symbolSize: 8,
+        color: '#B49356' // 金色流动效果
       }
     }
   ]
@@ -127,9 +149,9 @@ onMounted(async () => {
 <style scoped>
 .map-container {
   width: 100%;
-  background: white;
-  border-radius: 12px;
+  background: #FBFBFD;
+  border-radius: 16px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
 }
 </style>

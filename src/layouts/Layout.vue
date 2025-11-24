@@ -1,41 +1,50 @@
 <template>
-  <a-config-provider :theme="{ algorithm: theme.darkAlgorithm, token: themeToken }">
-    <a-layout class="main-layout">
-      <!-- 顶部导航栏 -->
-      <a-layout-header class="site-header">
+  <a-config-provider
+    :theme="{
+      algorithm: theme.defaultAlgorithm,
+      token: themeToken
+    }"
+  >
+    <a-layout class="layout-container">
+      <!-- 顶部导航栏 - 亮色透明 -->
+      <a-layout-header class="header">
         <div class="header-content">
-          <div class="logo">
-            <span class="logo-icon">🌏</span>
-            <span class="logo-text">丝路智汇</span>
+          <div class="logo-container" @click="router.push('/')">
+            <div class="logo-seal">丝路</div>
+            <div class="logo-text">
+              <span class="logo-main">丝路智汇</span>
+              <span class="logo-sub">The Silk Road Visualization</span>
+            </div>
           </div>
+          
           <a-menu
             v-model:selectedKeys="selectedKeys"
             mode="horizontal"
             class="nav-menu"
-            :style="{ lineHeight: '64px', borderBottom: 'none' }"
+            :style="{ lineHeight: '72px', borderBottom: 'none' }"
           >
             <a-menu-item key="/">
               <router-link to="/">
                 <HomeOutlined />
-                首页
+                首页概览
               </router-link>
             </a-menu-item>
             <a-menu-item key="/map">
               <router-link to="/map">
-                <EnvironmentOutlined />
-                地理可视化
+                <GlobalOutlined />
+                丝路地图
               </router-link>
             </a-menu-item>
             <a-menu-item key="/network">
               <router-link to="/network">
-                <ApartmentOutlined />
-                科技互鉴网络
+                <ShareAltOutlined />
+                贸易网络
               </router-link>
             </a-menu-item>
             <a-menu-item key="/timeline">
               <router-link to="/timeline">
-                <ClockCircleOutlined />
-                时间轴演进
+                <HistoryOutlined />
+                历史长河
               </router-link>
             </a-menu-item>
             <a-menu-item key="/about">
@@ -49,26 +58,20 @@
       </a-layout-header>
 
       <!-- 内容区域 -->
-      <a-layout-content class="site-content">
-        <div class="content-wrapper">
-          <router-view v-slot="{ Component }">
-            <transition name="fade" mode="out-in">
-              <component :is="Component" />
-            </transition>
-          </router-view>
-        </div>
+      <a-layout-content class="content-wrapper">
+        <router-view v-slot="{ Component }">
+          <transition name="fade-scale" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
       </a-layout-content>
 
-      <!-- 页脚 -->
+      <!-- 底部 -->
       <a-layout-footer class="site-footer">
         <div class="footer-content">
-          <p>&copy; 2025 丝路智汇 - 一带一路中的文化与科技互鉴可视化</p>
-          <p class="footer-tech">
-            <a-tag color="blue">Vue 3</a-tag>
-            <a-tag color="blue">Vite</a-tag>
-            <a-tag color="blue">ECharts</a-tag>
-            <a-tag color="gold">Ant Design Vue</a-tag>
-          </p>
+          <div class="footer-logo">丝路智汇</div>
+          <p class="footer-desc">传承丝路精神 · 展现数据之美</p>
+          <p class="copyright">©2024 Visualization Team. All Rights Reserved.</p>
         </div>
       </a-layout-footer>
     </a-layout>
@@ -76,127 +79,145 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { theme } from 'ant-design-vue'
-import {
-  HomeOutlined,
-  EnvironmentOutlined,
-  ApartmentOutlined,
-  ClockCircleOutlined,
-  InfoCircleOutlined
-} from '@ant-design/icons-vue'
+import { ref, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+import { theme } from 'ant-design-vue';
+import { 
+  HomeOutlined, 
+  GlobalOutlined, 
+  ShareAltOutlined, 
+  HistoryOutlined, 
+  InfoCircleOutlined 
+} from '@ant-design/icons-vue';
 
-const route = useRoute()
-const selectedKeys = ref([route.path])
+const router = useRouter();
+const route = useRoute();
+const selectedKeys = ref(['/']);
 
-// 监听路由变化，更新选中的菜单项
-watch(() => route.path, (newPath) => {
-  selectedKeys.value = [newPath]
-})
-
-// 主题配置
+// 自定义主题 Token - 亮色高级感
 const themeToken = {
-  colorPrimary: '#1E3F66',
-  colorInfo: '#1E3F66',
-  colorSuccess: '#C4975B',
-  colorWarning: '#C4975B',
-  colorTextBase: '#EAEAEA',
-  colorBgBase: '#1B263B',
-  fontFamily: 'Montserrat, "Source Han Sans CN", sans-serif',
-  borderRadius: 12,
-}
+  colorPrimary: '#2C5578', // 黛蓝
+  colorBgBase: '#FFFFFF',
+  colorTextBase: '#1D1D1F',
+  fontFamily: '"Source Han Sans CN", sans-serif',
+  borderRadius: 8,
+  wireframe: false,
+};
+
+watch(
+  () => route.path,
+  (path) => {
+    selectedKeys.value = [path];
+  },
+  { immediate: true }
+);
 </script>
 
 <style scoped>
-.main-layout {
+.layout-container {
   min-height: 100vh;
-  background: var(--bg-dark);
+  background: #F5F5F7;
 }
 
 /* 头部样式 */
-.site-header {
-  background: linear-gradient(135deg, #1E3F66 0%, #2a5a8f 100%);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
-  padding: 0;
-  height: 64px;
-  line-height: 64px;
-  position: sticky;
-  top: 0;
+.header {
+  position: fixed;
   z-index: 1000;
-  border-bottom: 2px solid var(--accent-gold);
+  width: 100%;
+  height: 72px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.8); /* 亮色磨砂 */
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .header-content {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 24px;
+  height: 100%;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
 }
 
 /* Logo 样式 */
-.logo {
+.logo-container {
   display: flex;
   align-items: center;
   gap: 12px;
   cursor: pointer;
+  transition: opacity 0.3s ease;
 }
 
-.logo-icon {
-  font-size: 2rem;
-  animation: rotate 20s linear infinite;
+.logo-container:hover {
+  opacity: 0.8;
 }
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo-seal {
+  width: 40px;
+  height: 40px;
+  background: #C0392B; /* 胭脂红印章 */
+  color: #fff;
+  border-radius: 8px; /* 圆角矩形 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Noto Serif SC", serif;
+  font-size: 18px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(192, 57, 43, 0.3);
 }
 
 .logo-text {
-  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-main {
+  font-size: 20px;
   font-weight: 700;
-  color: var(--accent-gold);
-  font-family: Montserrat, "Source Han Serif CN", serif;
-  letter-spacing: 2px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #1D1D1F;
+  font-family: "Noto Serif SC", serif;
+  letter-spacing: 1px;
+  line-height: 1.2;
+}
+
+.logo-sub {
+  font-size: 10px;
+  color: #86868B;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 /* 导航菜单 */
 .nav-menu {
   background: transparent;
-  border: none;
-  flex: 1;
+  border-bottom: none;
+  min-width: 500px;
   justify-content: flex-end;
 }
 
 .nav-menu :deep(.ant-menu-item) {
-  color: #EAEAEA;
-  font-size: 15px;
+  color: #86868B;
+  font-size: 14px;
   font-weight: 500;
-  margin: 0 8px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  margin: 0 4px;
 }
 
 .nav-menu :deep(.ant-menu-item:hover) {
-  background: rgba(196, 151, 91, 0.15);
-  color: var(--accent-gold);
+  color: #2C5578 !important;
 }
 
 .nav-menu :deep(.ant-menu-item-selected) {
-  background: rgba(196, 151, 91, 0.2);
-  color: var(--accent-gold);
-  font-weight: 600;
+  color: #2C5578 !important;
+  background: rgba(44, 85, 120, 0.08) !important;
+  border-radius: 8px;
 }
 
 .nav-menu :deep(.ant-menu-item-selected::after) {
-  border-bottom: 3px solid var(--accent-gold);
+  display: none;
 }
 
 .nav-menu :deep(a) {
@@ -207,81 +228,75 @@ const themeToken = {
   gap: 6px;
 }
 
-.nav-menu :deep(.anticon) {
-  font-size: 16px;
-}
-
 /* 内容区域 */
-.site-content {
-  background: var(--bg-dark);
-  min-height: calc(100vh - 200px);
-}
-
 .content-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 24px;
+  margin-top: 72px;
+  min-height: calc(100vh - 72px - 200px);
 }
 
-/* 页脚 */
+/* 底部样式 */
 .site-footer {
-  background: var(--bg-dark-2);
-  border-top: 2px solid var(--border-color);
+  background: #FFFFFF;
+  padding: 60px 0;
   text-align: center;
-  padding: 32px 24px;
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 
-.footer-content p {
-  margin: 8px 0;
-  color: var(--text-secondary);
+.footer-logo {
+  font-family: "Noto Serif SC", serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1D1D1F;
+  margin-bottom: 12px;
 }
 
-.footer-tech {
-  margin-top: 12px;
+.footer-desc {
+  color: #86868B;
+  margin-bottom: 24px;
+  font-size: 14px;
 }
 
-.footer-tech :deep(.ant-tag) {
-  margin: 4px;
+.copyright {
+  color: #D1D1D6;
+  font-size: 12px;
 }
 
-/* 页面切换动画 */
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+/* 路由过渡动画 */
+.fade-scale-enter-active,
+.fade-scale-leave-active {
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.fade-enter-from {
+.fade-scale-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: scale(0.98) translateY(10px);
 }
 
-.fade-leave-to {
+.fade-scale-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: scale(1.02);
 }
 
-/* 响应式 */
+/* 响应式调整 */
 @media (max-width: 768px) {
-  .header-content {
-    padding: 0 16px;
+  .header {
+    height: 64px;
   }
   
-  .logo-text {
-    font-size: 1.2rem;
+  .content-wrapper {
+    margin-top: 64px;
   }
   
-  .nav-menu :deep(.ant-menu-item) {
-    font-size: 13px;
-    margin: 0 4px;
-    padding: 0 12px;
+  .logo-sub {
+    display: none;
+  }
+  
+  .nav-menu {
+    min-width: auto;
   }
   
   .nav-menu :deep(a span:last-child) {
     display: none;
-  }
-  
-  .content-wrapper {
-    padding: 16px;
   }
 }
 </style>

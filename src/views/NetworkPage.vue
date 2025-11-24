@@ -3,8 +3,8 @@
     <a-card title="🔗 一带一路科技交流网络" class="page-card" :bordered="false">
       <template #extra>
         <a-space>
-          <a-tag color="green">网络图</a-tag>
-          <a-tag color="orange">数据分析</a-tag>
+          <a-tag color="#2C5578">网络图</a-tag>
+          <a-tag color="#B49356">数据分析</a-tag>
         </a-space>
       </template>
       
@@ -39,11 +39,18 @@ import SankeyFlow from '../components/SankeyFlow.vue'
 .page-card,
 .flow-card {
   margin-bottom: 24px;
+  background: #FFFFFF;
 }
 
 .page-description {
   font-size: 1.05rem !important;
-  color: var(--text-secondary) !important;
+  color: #666 !important;
   margin-bottom: 24px !important;
+}
+
+/* 覆盖 chart-wrapper 样式以适应亮色 */
+.chart-wrapper {
+  background: #FBFBFD;
+  border: 1px solid rgba(0,0,0,0.03);
 }
 </style>

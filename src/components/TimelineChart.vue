@@ -22,26 +22,36 @@ const timelineData = [
 ]
 
 const categories = [
-  { name: '外交', itemStyle: { color: '#667eea' } },
-  { name: '军事', itemStyle: { color: '#764ba2' } },
-  { name: '文化', itemStyle: { color: '#f093fb' } },
-  { name: '政治', itemStyle: { color: '#4facfe' } },
-  { name: '航海', itemStyle: { color: '#43e97b' } },
-  { name: '经济', itemStyle: { color: '#fa709a' } }
+  { name: '外交', itemStyle: { color: '#B49356' } }, // 金色
+  { name: '军事', itemStyle: { color: '#C0392B' } }, // 红色
+  { name: '文化', itemStyle: { color: '#2C5578' } }, // 蓝色
+  { name: '政治', itemStyle: { color: '#27AE60' } }, // 绿色
+  { name: '航海', itemStyle: { color: '#8E44AD' } }, // 紫色
+  { name: '经济', itemStyle: { color: '#E67E22' } }  // 橙色
 ]
 
 const chartOption = computed(() => ({
+  backgroundColor: 'transparent',
   title: {
     text: '丝绸之路历史时间轴',
     subtext: '重要历史事件演进',
     left: 'center',
     textStyle: {
       fontSize: 24,
-      color: '#667eea'
+      color: '#2C3E50',
+      fontFamily: '"Noto Serif SC", serif'
+    },
+    subtextStyle: {
+      color: '#86868B'
     }
   },
   tooltip: {
     trigger: 'item',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderColor: '#E5E7EB',
+    textStyle: {
+      color: '#1F2937'
+    },
     formatter: (params) => {
       const year = params.data.year < 0 ? `公元前${Math.abs(params.data.year)}年` : `公元${params.data.year}年`
       return `${year}<br/>${params.data.event}<br/>影响力: ${params.data.value}`
@@ -49,7 +59,10 @@ const chartOption = computed(() => ({
   },
   legend: {
     data: categories.map(c => c.name),
-    bottom: 10
+    bottom: 10,
+    textStyle: {
+      color: '#2C3E50'
+    }
   },
   grid: {
     left: '10%',
@@ -66,14 +79,28 @@ const chartOption = computed(() => ({
     }),
     axisLabel: {
       rotate: 45,
-      fontSize: 11
+      fontSize: 11,
+      color: '#2C3E50'
+    },
+    axisLine: {
+      lineStyle: {
+        color: '#E5E7EB'
+      }
     }
   },
   yAxis: {
     type: 'value',
     name: '历史影响力',
     min: 0,
-    max: 100
+    max: 100,
+    axisLabel: {
+      color: '#2C3E50'
+    },
+    splitLine: {
+      lineStyle: {
+        color: '#F3F4F6'
+      }
+    }
   },
   series: [
     {
@@ -85,7 +112,9 @@ const chartOption = computed(() => ({
         event: item.event,
         category: item.category,
         itemStyle: {
-          color: categories.find(c => c.name === item.category).itemStyle.color
+          color: categories.find(c => c.name === item.category).itemStyle.color,
+          shadowBlur: 10,
+          shadowColor: 'rgba(0,0,0,0.2)'
         }
       })),
       symbolSize: (val) => val[1] * 0.5,
@@ -93,13 +122,15 @@ const chartOption = computed(() => ({
         show: true,
         formatter: (params) => params.data.event,
         position: 'top',
-        fontSize: 10,
-        color: '#333'
+        fontSize: 12,
+        color: '#2C3E50',
+        fontFamily: '"Source Han Sans CN", sans-serif',
+        fontWeight: 500
       },
       emphasis: {
         focus: 'self',
         label: {
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: 'bold'
         }
       }
@@ -110,7 +141,7 @@ const chartOption = computed(() => ({
       data: timelineData.map(d => d.value),
       smooth: true,
       lineStyle: {
-        color: '#667eea',
+        color: '#B49356',
         width: 2,
         type: 'dashed'
       },
@@ -123,8 +154,8 @@ const chartOption = computed(() => ({
           x2: 0,
           y2: 1,
           colorStops: [
-            { offset: 0, color: 'rgba(102, 126, 234, 0.3)' },
-            { offset: 1, color: 'rgba(102, 126, 234, 0.05)' }
+            { offset: 0, color: 'rgba(180, 147, 86, 0.2)' },
+            { offset: 1, color: 'rgba(180, 147, 86, 0.01)' }
           ]
         }
       }
@@ -136,9 +167,9 @@ const chartOption = computed(() => ({
 <style scoped>
 .timeline-container {
   width: 100%;
-  background: white;
-  border-radius: 12px;
+  background: #FBFBFD;
+  border-radius: 16px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
 }
 </style>
