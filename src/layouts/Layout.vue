@@ -173,6 +173,7 @@ watch(
 .logo-text {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .logo-main {
@@ -181,7 +182,8 @@ watch(
   color: #1D1D1F;
   font-family: "Noto Serif SC", serif;
   letter-spacing: 1px;
-  line-height: 1.2;
+  line-height: 1.4;
+  margin-bottom: 2px;
 }
 
 .logo-sub {
@@ -189,6 +191,7 @@ watch(
   color: #86868B;
   text-transform: uppercase;
   letter-spacing: 1px;
+  line-height: 1.2;
 }
 
 /* 导航菜单 */
