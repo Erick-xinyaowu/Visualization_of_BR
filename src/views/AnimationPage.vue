@@ -41,6 +41,11 @@
         <a-button type="text" shape="circle" size="large" @click="restart" class="play-btn">
           <template #icon><ReloadOutlined /></template>
         </a-button>
+        <a-button type="text" shape="circle" size="large" @click="toggleMute" class="play-btn">
+          <template #icon>
+            <component :is="isMuted ? 'AudioMutedOutlined' : 'SoundOutlined'" />
+          </template>
+        </a-button>
         <a-button type="text" shape="circle" size="large" @click="$router.push('/')" class="play-btn">
           <template #icon><HomeOutlined /></template>
         </a-button>
@@ -57,7 +62,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import * as echarts from 'echarts'
 import worldJson from '../assets/map/world.json'
-import { PlayCircleOutlined, PauseCircleOutlined, ReloadOutlined, HomeOutlined } from '@ant-design/icons-vue'
+import { PlayCircleOutlined, PauseCircleOutlined, ReloadOutlined, HomeOutlined, SoundOutlined, AudioMutedOutlined } from '@ant-design/icons-vue'
 
 const router = useRouter()
 const chartContainer = ref(null)
@@ -77,6 +82,8 @@ const showCardCulture = ref(false)
 const showCardTech = ref(false)
 const showSubtitle = ref(false)
 const currentSubtitle = ref({ cn: '', en: '' })
+const isMuted = ref(false)
+const lastPlayedIndex = ref(-1)
 
 const totalDuration = 32000 // 32秒
 
@@ -214,6 +221,23 @@ function drawNode(ctx, point, name, color, scale = 1, pulse = false) {
   }
 }
 
+// 语音合成函数
+function speak(text) {
+  if (isMuted.value) return
+  window.speechSynthesis.cancel()
+  const utterance = new SpeechSynthesisUtterance(text)
+  utterance.lang = 'zh-CN'
+  utterance.rate = 1.0
+  window.speechSynthesis.speak(utterance)
+}
+
+function toggleMute() {
+  isMuted.value = !isMuted.value
+  if (isMuted.value) {
+    window.speechSynthesis.cancel()
+  }
+}
+
 // 动画主循环
 function animate(timestamp) {
   if (!isPlaying.value) {
@@ -246,8 +270,14 @@ function animate(timestamp) {
   ctx.clearRect(0, 0, width, height)
 
   // 剧本逻辑
-  let currentScript = script.find(s => elapsed >= s.start && elapsed < s.end)
-  if (!currentScript && elapsed >= script[script.length-1].end) currentScript = script[script.length-1]
+  let scriptIndex = script.findIndex(s => elapsed >= s.start && elapsed < s.end)
+  let currentScript = null
+  
+  if (scriptIndex !== -1) {
+    currentScript = script[scriptIndex]
+  } else if (elapsed >= script[script.length-1].end) {
+    currentScript = script[script.length-1]
+  }
   
   if (currentScript) {
     if (currentSubtitle.value.cn !== currentScript.cn) {
@@ -256,6 +286,12 @@ function animate(timestamp) {
         currentSubtitle.value = { cn: currentScript.cn, en: currentScript.en }
         showSubtitle.value = true
       }, 200)
+    }
+
+    // 配音逻辑
+    if (scriptIndex !== -1 && scriptIndex !== lastPlayedIndex.value) {
+      lastPlayedIndex.value = scriptIndex
+      speak(currentScript.cn)
     }
   }
 
@@ -366,6 +402,11 @@ function animate(timestamp) {
 
 function togglePlay() {
   isPlaying.value = !isPlaying.value
+  if (isPlaying.value) {
+    window.speechSynthesis.resume()
+  } else {
+    window.speechSynthesis.pause()
+  }
 }
 
 function restart() {
@@ -376,6 +417,9 @@ function restart() {
   isPlaying.value = true
   showCardCulture.value = false
   showCardTech.value = false
+  
+  window.speechSynthesis.cancel()
+  lastPlayedIndex.value = -1
 }
 
 onMounted(() => {
@@ -425,6 +469,7 @@ onMounted(() => {
 onUnmounted(() => {
   if (animationFrameId) cancelAnimationFrame(animationFrameId)
   if (myChart) myChart.dispose()
+  window.speechSynthesis.cancel()
 })
 </script>
 
