@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import MapPage from '../views/MapPage.vue'
 import NetworkPage from '../views/NetworkPage.vue'
 import TimelinePage from '../views/TimelinePage.vue'
+import AnimationPage from '../views/AnimationPage.vue'
 import About from '../views/About.vue'
 
 const routes = [
@@ -29,6 +30,12 @@ const routes = [
     name: 'TimelinePage',
     component: TimelinePage,
     meta: { title: '时间轴演进 - 丝路智汇' }
+  },
+  {
+    path: '/animation',
+    name: 'AnimationPage',
+    component: AnimationPage,
+    meta: { title: '动画简介 - 丝路智汇' }
   },
   {
     path: '/about',

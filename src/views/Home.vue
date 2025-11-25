@@ -20,6 +20,10 @@
             <template #icon><CompassOutlined /></template>
             开始探索
           </a-button>
+          <a-button size="large" class="btn-outline" @click="$router.push('/animation')">
+            <template #icon><PlayCircleOutlined /></template>
+            动画简介
+          </a-button>
           <a-button size="large" class="btn-outline" @click="$router.push('/about')">
             <template #icon><ReadOutlined /></template>
             了解更多
@@ -165,7 +169,8 @@ import {
   CheckCircleOutlined,
   GlobalOutlined,
   ShareAltOutlined,
-  HistoryOutlined
+  HistoryOutlined,
+  PlayCircleOutlined
 } from '@ant-design/icons-vue'
 </script>
 

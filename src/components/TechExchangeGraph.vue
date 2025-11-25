@@ -5,29 +5,40 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import * as echarts from 'echarts'
+import worldJson from '../assets/map/world.json'
 
 const chartRef = ref(null)
 
-// 模拟地理坐标映射 (简单投影)
-// 经度 x: (lon + 20) * 5
-// 纬度 y: (60 - lat) * 8
-const geoMap = {
-  '中国': [650, 250],
-  '俄罗斯': [600, 100],
-  '印度': [500, 350],
-  '巴基斯坦': [460, 320],
-  '新加坡': [630, 450],
-  '马来西亚': [620, 430],
-  '泰国': [600, 380],
-  '土耳其': [300, 220],
-  '埃及': [280, 300],
-  '沙特阿拉伯': [350, 320],
-  '意大利': [150, 200],
-  '德国': [140, 150],
-  '法国': [100, 180]
+// 注册地图
+echarts.registerMap('world', worldJson)
+
+// 国家经纬度坐标
+const geoCoordMap = {
+  '中国': [104.1954, 35.8617],
+  '俄罗斯': [105.3188, 61.5240],
+  '印度': [78.9629, 20.5937],
+  '巴基斯坦': [69.3451, 30.3753],
+  '新加坡': [103.8198, 1.3521],
+  '马来西亚': [101.9758, 4.2105],
+  '泰国': [100.9925, 15.8700],
+  '土耳其': [35.2433, 38.9637],
+  '埃及': [30.8025, 26.8206],
+  '沙特阿拉伯': [45.0792, 23.8859],
+  '意大利': [12.5674, 41.8719],
+  '德国': [10.4515, 51.1657],
+  '法国': [2.2137, 46.2276]
 }
+
+// 颜色配置 - 对应不同区域/类别
+const categoryColors = [
+  '#C0392B', // 核心国家 (中国) - 红色
+  '#2C5578', // 主要伙伴 (俄罗斯, 印度) - 深蓝
+  '#B49356', // 亚太地区 - 金色
+  '#27AE60', // 中东地区 - 绿色
+  '#8E44AD'  // 欧洲地区 - 紫色
+]
 
 // 示例数据 - 一带一路国家科技交流网络
 const rawNodes = [
@@ -48,11 +59,15 @@ const rawNodes = [
 
 const nodes = rawNodes.map(node => ({
   ...node,
-  x: geoMap[node.name] ? geoMap[node.name][0] : Math.random() * 800,
-  y: geoMap[node.name] ? geoMap[node.name][1] : Math.random() * 500,
-  symbolSize: node.value * 0.5,
+  // value 格式: [经度, 纬度, 数值]
+  value: geoCoordMap[node.name] ? [...geoCoordMap[node.name], node.value] : [0, 0, node.value],
+  symbolSize: node.value * 0.4 + 10, // 调整节点大小
   itemStyle: {
-    color: node.name === '中国' ? '#C0392B' : '#2C5578' // 中国用红色，其他用蓝色
+    color: categoryColors[node.category] || '#2C5578',
+    borderColor: '#fff',
+    borderWidth: 2,
+    shadowBlur: 10,
+    shadowColor: 'rgba(0, 0, 0, 0.3)'
   },
   label: {
     show: true,
@@ -60,7 +75,10 @@ const nodes = rawNodes.map(node => ({
     formatter: '{b}',
     fontSize: 12,
     color: '#333',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    padding: [2, 4],
+    borderRadius: 4
   }
 }))
 
@@ -85,8 +103,10 @@ const links = [
 ].map(link => ({
   ...link,
   lineStyle: {
-    width: link.value / 15, // 边粗细基于数值
-    curveness: 0.2
+    width: link.value / 20, // 边粗细基于数值
+    curveness: 0.2,
+    color: '#B49356', // 统一金色连线
+    opacity: 0.6
   }
 }))
 
@@ -97,10 +117,6 @@ const categories = [
   { name: '中东地区' },
   { name: '欧洲地区' }
 ]
-
-// 简单的世界地图背景 SVG (极简轮廓)
-const worldMapSVG = `data:image/svg+xml;utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500'%3E%3Cpath fill='%23E0E0E0' d='M850,150 Q900,100 950,150 T900,250 T850,150 M100,150 Q150,100 200,150 T150,250 T100,150 M300,250 Q350,200 400,250 T350,350 T300,250 M600,100 Q650,50 700,100 T650,200 T600,100' opacity='0.3'/%3E%3Ctext x='500' y='250' font-size='100' fill='%23F0F0F0' text-anchor='middle' dominant-baseline='middle'%3EWORLD MAP%3C/text%3E%3C/svg%3E`
-// 注意：真实的 SVG 地图路径太长，这里用一个占位符背景，实际项目中建议引入真实地图图片
 
 const chartOption = computed(() => ({
   backgroundColor: '#FBFBFD',
@@ -131,7 +147,7 @@ const chartOption = computed(() => ({
                 <div>合作强度: <span style="color:#C0392B;font-weight:bold">${params.data.value}</span></div>`
       }
       return `<div style="font-weight:bold;font-size:16px;margin-bottom:4px;">${params.name}</div>
-              <div>科技影响力: <span style="color:#B49356;font-weight:bold">${params.data.value}</span></div>
+              <div>科技影响力: <span style="color:#B49356;font-weight:bold">${params.data.value[2]}</span></div>
               <div>所属区域: ${categories[params.data.category]?.name || '未知'}</div>`
     }
   },
@@ -142,30 +158,38 @@ const chartOption = computed(() => ({
     bottom: '20',
     textStyle: {
       color: '#666'
-    }
+    },
+    itemGap: 15,
+    selectedMode: 'multiple'
   }],
-  // 使用 graphic 组件添加一个简单的背景图或水印
-  graphic: [
-    {
-      type: 'text',
-      left: 'center',
-      top: 'center',
-      style: {
-        text: 'The Silk Road',
-        fontSize: 100,
-        fontWeight: 'bold',
-        fill: 'rgba(0,0,0,0.03)',
-        fontFamily: '"Noto Serif SC", serif'
+  geo: {
+    map: 'world',
+    roam: true,
+    zoom: 1.8, // 放大地图
+    center: [70, 35], // 聚焦在亚洲/欧洲交界处
+    label: {
+      emphasis: {
+        show: false
+      }
+    },
+    itemStyle: {
+      areaColor: '#F0EFE9', // 暖色调背景
+      borderColor: '#FFFFFF',
+      borderWidth: 1
+    },
+    emphasis: {
+      itemStyle: {
+        areaColor: '#E2DBC6'
       }
     }
-  ],
+  },
   series: [{
     type: 'graph',
-    layout: 'none', // 使用手动坐标
+    coordinateSystem: 'geo', // 使用地理坐标系
     data: nodes,
     links: links,
     categories: categories,
-    roam: true,
+    roam: true, // 允许缩放和平移
     label: {
       show: true,
       position: 'right',
@@ -176,9 +200,8 @@ const chartOption = computed(() => ({
       hideOverlap: true
     },
     lineStyle: {
-      color: '#B49356', // 金色连线
-      curveness: 0.2,
-      opacity: 0.4
+      color: 'source',
+      curveness: 0.2
     },
     emphasis: {
       focus: 'adjacency',
@@ -186,12 +209,6 @@ const chartOption = computed(() => ({
         width: 4,
         opacity: 1
       }
-    },
-    itemStyle: {
-      borderColor: '#fff',
-      borderWidth: 2,
-      shadowBlur: 5,
-      shadowColor: 'rgba(0, 0, 0, 0.2)'
     }
   }]
 }))
@@ -207,19 +224,5 @@ const chartOption = computed(() => ({
   border: 1px solid rgba(0,0,0,0.05);
   position: relative;
   overflow: hidden;
-}
-
-/* 添加一个伪元素作为地图背景（如果需要更复杂的背景） */
-.graph-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: radial-gradient(#E5E7EB 1px, transparent 1px);
-  background-size: 20px 20px;
-  opacity: 0.5;
-  pointer-events: none;
 }
 </style>
