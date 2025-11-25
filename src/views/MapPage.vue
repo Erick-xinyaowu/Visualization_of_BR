@@ -7,7 +7,7 @@
       </div>
       <div class="controls">
         <a-space>
-          <a-button type="primary" ghost class="control-btn" @click="togglePlay">
+          <a-button type="primary" class="control-btn" @click="togglePlay">
             <template #icon>
               <component :is="isPlaying ? 'PauseCircleOutlined' : 'PlayCircleOutlined'" />
             </template>
@@ -26,10 +26,15 @@
       <div id="map-view" class="chart-card main-card">
         <div class="card-header">
           <span class="card-title-icon">🗺️</span>
-          <span class="card-title-text">GEOGRAPHIC FLOW // 科技传播路径</span>
+          <span class="card-title-text">GEOGRAPHIC FLOW 科技传播路径</span>
         </div>
         <div class="chart-wrapper">
           <v-chart class="chart" :option="mapOption" autoresize />
+          <transition name="fade">
+            <div class="period-watermark" v-if="currentPeriodLabel" :key="currentPeriodLabel">
+              {{ currentPeriodLabel }}
+            </div>
+          </transition>
         </div>
       </div>
 
@@ -37,7 +42,7 @@
       <div id="network-view" class="chart-card side-card">
         <div class="card-header">
           <span class="card-title-icon">🕸️</span>
-          <span class="card-title-text">RELATION NETWORK // 互鉴关系网</span>
+          <span class="card-title-text">RELATION NETWORK 互鉴关系网</span>
         </div>
         <div class="chart-wrapper">
           <v-chart class="chart" :option="networkOption" autoresize />
@@ -48,7 +53,7 @@
       <div id="timeline-view" class="chart-card side-card">
         <div class="card-header">
           <span class="card-title-icon">⏳</span>
-          <span class="card-title-text">CHRONOLOGY // 时间演化</span>
+          <span class="card-title-text">CHRONOLOGY 时间演化</span>
         </div>
         <div class="chart-wrapper">
           <v-chart class="chart" :option="timelineOption" @click="handleTimelineClick" autoresize />
@@ -67,11 +72,22 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { PlayCircleOutlined, PauseCircleOutlined, ReloadOutlined } from '@ant-design/icons-vue'
 import * as echarts from 'echarts'
+import worldJson from '../assets/map/world.json'
 
 // State
 const isPlaying = ref(false)
 const isLoading = ref(true)
+const currentPeriodLabel = ref('历史全览 All Periods')
 let playInterval = null
+
+const periodDisplayMap = {
+    'Han': '汉代 Han Dynasty',
+    'Tang': '唐代 Tang Dynasty',
+    'Song': '宋代 Song Dynasty',
+    'Yuan': '元代 Yuan Dynasty',
+    'Ming': '明代 Ming Dynasty',
+    'All': '历史全览 All Periods'
+};
 
 // Options Refs - 初始化为有效的空配置
 const mapOption = ref({ title: { text: '加载中...' } })
@@ -174,7 +190,7 @@ function updateMapOption(activePeriod = 'All') {
             if (!visited.has(city) && geoCoordMap[city]) {
                 pointsData.push({
                     name: city,
-                    value: geoCoordMap[city]
+                    value: [...geoCoordMap[city], 1]
                 });
                 visited.add(city);
             }
@@ -210,99 +226,82 @@ function updateMapOption(activePeriod = 'All') {
                 return `<div style="font-family: 'Noto Serif SC'; font-weight: bold; color: #B49356;">${params.name}</div>`;
             }
         },
-        grid: {
-            left: 40,
-            right: 40,
-            top: 60,
-            bottom: 40,
-            containLabel: true
-        },
-        xAxis: {
-            type: 'value',
-            min: 0,
-            max: 140,
-            show: false
-        },
-        yAxis: {
-            type: 'value',
-            min: 0,
-            max: 60,
-            show: false
+        geo: {
+            map: 'world',
+            roam: true,
+            zoom: 2.6,
+            center: [74, 30],
+            label: { emphasis: { show: false } },
+            itemStyle: {
+                areaColor: '#F0EFE9',
+                borderColor: '#FFFFFF',
+                borderWidth: 1
+            },
+            emphasis: {
+                itemStyle: { areaColor: '#E2DBC6' }
+            }
         },
         series: [
-            // 背景网格线
             {
                 type: 'lines',
-                coordinateSystem: 'cartesian2d',
+                coordinateSystem: 'geo',
                 zlevel: 1,
                 effect: { show: false },
                 lineStyle: { 
                     width: 1, 
-                    opacity: 0.15, 
-                    color: '#CBD5E0',
-                    type: 'dashed'
-                },
+                    opacity: 0.2, 
+                    curveness: 0.2, 
+                    color: '#A0AEC0' 
+                }, 
                 data: linesData
             },
-            // 动态流动线条
             {
                 type: 'lines',
-                coordinateSystem: 'cartesian2d',
+                coordinateSystem: 'geo',
                 zlevel: 2,
                 effect: {
                     show: true,
-                    period: 5,
-                    trailLength: 0.3,
+                    period: 4,
+                    trailLength: 0.4,
                     symbol: 'arrow',
-                    symbolSize: 8
+                    symbolSize: 6,
+                    color: '#B49356'
                 },
                 lineStyle: {
-                    width: 2.5,
-                    opacity: 0.8,
-                    curveness: 0.25
+                    width: 2,
+                    opacity: 0.7,
+                    curveness: 0.2
                 },
                 data: linesData.map(d => ({
                     ...d,
-                    effect: { 
-                        color: d.lineStyle.color,
-                        period: Math.random() * 3 + 3
-                    }
+                    effect: { color: d.lineStyle.color }
                 }))
             },
-            // 城市节点
             {
                 type: 'effectScatter',
-                coordinateSystem: 'cartesian2d',
+                coordinateSystem: 'geo',
                 zlevel: 3,
-                rippleEffect: { 
-                    brushType: 'stroke', 
-                    scale: 4,
-                    period: 3
-                },
-                symbolSize: function(val) {
-                    // 重要城市如长安、罗马更大
-                    const name = pointsData.find(p => p.value[0] === val[0] && p.value[1] === val[1])?.name;
-                    if (name === '长安' || name === '罗马' || name === '伊斯坦布尔') return 16;
-                    return 10;
+                rippleEffect: { brushType: 'stroke', scale: 3 },
+                symbolSize: function(val, params) {
+                    const name = params.name;
+                    if (name === '长安' || name === '罗马' || name === '伊斯坦布尔') return 12;
+                    return 8;
                 },
                 itemStyle: {
-                    color: '#B49356',
-                    shadowBlur: 10,
-                    shadowColor: 'rgba(180, 147, 86, 0.5)'
+                    color: colors.node,
+                    shadowBlur: 5,
+                    shadowColor: colors.node
                 },
                 label: {
                     show: true,
-                    position: 'top',
+                    position: 'right',
                     formatter: '{b}',
                     color: '#2C3E50',
-                    fontSize: 11,
+                    fontSize: 10,
                     fontFamily: '"Source Han Sans CN", sans-serif',
-                    fontWeight: 600,
-                    backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                    padding: [3, 6],
-                    borderRadius: 3,
-                    borderColor: '#B49356',
-                    borderWidth: 1
+                    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                    padding: [2, 4],
+                    borderRadius: 2
                 },
                 data: pointsData
             }
@@ -310,7 +309,7 @@ function updateMapOption(activePeriod = 'All') {
     };
     
     mapOption.value = newOption;
-    console.log('✅ Map option updated (cartesian2d mode):', newOption);
+    console.log('✅ Map option updated (geo mode):', newOption);
 }
 
 function updateNetworkOption(activePeriod = 'All') {
@@ -418,6 +417,7 @@ function updateTimelineOption(activePeriod = 'All') {
 
 function renderAll(period) {
     console.log('🎨 renderAll called with period:', period);
+    currentPeriodLabel.value = periodDisplayMap[period] || period;
     updateMapOption(period);
     console.log('✅ updateMapOption done, mapOption:', mapOption.value);
     updateNetworkOption(period);
@@ -473,10 +473,10 @@ onMounted(async () => {
     isLoading.value = true
     console.log('🗺️ MapPage mounted, initializing...')
     
-    // 直接使用不依赖geo地图的可视化方案
     try {
-        // 使用scatter图表替代地理地图（更稳定，不需要外部地图数据）
-        console.log('📊 Initializing charts without external map dependency...')
+        // 注册本地地图数据
+        echarts.registerMap('world', worldJson)
+        console.log('✅ World map registered from local asset')
         
         setTimeout(() => {
             renderAll('All')
@@ -637,5 +637,36 @@ onUnmounted(() => {
 
 .loading-container :deep(.ant-spin) {
   color: var(--accent-gold);
+}
+
+.period-watermark {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 10px 20px;
+  border-radius: 8px;
+  border-left: 4px solid var(--accent-gold);
+  font-family: "Noto Serif SC", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  pointer-events: none;
+  letter-spacing: 1px;
+  transition: all 0.5s ease;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>
