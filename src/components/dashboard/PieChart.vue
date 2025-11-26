@@ -1,6 +1,6 @@
 <template>
   <div class="chart-container">
-    <v-chart class="chart" :option="option" autoresize />
+    <v-chart class="chart" :option="option" autoresize @click="handleClick" />
   </div>
 </template>
 
@@ -11,38 +11,35 @@ import { useDashboardStore } from '../../store/dashboardStore'
 const store = useDashboardStore()
 
 const option = computed(() => {
-  // Aggregate data by region
-  const regionData = {}
-  store.currentYearData.forEach(item => {
-    if (!regionData[item.region]) regionData[item.region] = 0
-    regionData[item.region] += item.investment
-  })
-
-  const data = Object.keys(regionData).map(region => ({
-    name: region,
-    value: regionData[region]
-  }))
+  // Show Top Countries by Investment instead of Region to match Global Legend
+  const data = store.currentYearData
+    .sort((a, b) => b.investment - a.investment)
+    .slice(0, 8) // Top 8
 
   return {
     title: {
-      text: '各区域投资占比',
+      text: '各国家投资占比 (Top 8)',
       left: 'center',
       textStyle: { color: '#fff' }
     },
     tooltip: {
       trigger: 'item'
     },
-    legend: {
-      orient: 'vertical',
-      left: 'left',
-      textStyle: { color: '#fff' }
-    },
+    // Legend removed
     series: [
       {
         name: 'Investment',
         type: 'pie',
         radius: '50%',
-        data: data,
+        center: ['50%', '52%'],
+        data: data.map(item => ({
+          value: item.investment,
+          name: item.name,
+          itemStyle: {
+            color: store.countryColors[item.name] || '#5470c6',
+            opacity: (store.selectedCountries.length > 0 && !store.selectedCountries.includes(item.name)) ? 0.3 : 1
+          }
+        })),
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -54,6 +51,9 @@ const option = computed(() => {
     ]
   }
 })
+function handleClick(params) {
+  store.toggleCountrySelection(params.name)
+}
 </script>
 
 <style scoped>

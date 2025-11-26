@@ -25,16 +25,13 @@ const option = computed(() => {
       trigger: 'item',
       formatter: '{b} : {c}'
     },
-    legend: {
-      bottom: 0,
-      textStyle: { color: '#fff' }
-    },
+    // Legend removed to save space and use global legend
     series: [
       {
         name: 'Cultural Index',
         type: 'pie',
-        radius: [20, 100],
-        center: ['50%', '50%'],
+        radius: [15, 70],
+        center: ['50%', '52%'],
         roseType: 'area',
         itemStyle: {
           borderRadius: 8
@@ -43,8 +40,7 @@ const option = computed(() => {
           value: item.culturalIndex,
           name: item.name,
           itemStyle: {
-            color: store.selectedCountries.includes(item.name) ? '#C4975B' : 
-                   (store.hoveredCountry === item.name ? '#E6B87D' : undefined),
+            color: store.countryColors[item.name] || '#5470c6', // Use global color
             opacity: (store.selectedCountries.length > 0 && !store.selectedCountries.includes(item.name)) ? 0.3 : 1
           }
         }))

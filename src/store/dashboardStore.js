@@ -33,6 +33,29 @@ export const useDashboardStore = defineStore('dashboard', () => {
 
   const years = [2018, 2019, 2020, 2021, 2022, 2023]
 
+  // Region Colors (matching ECharts default palette order for regions)
+  const regionColors = {
+    'East Asia': '#5470c6',
+    'Central Asia': '#91cc75',
+    'South Asia': '#fac858',
+    'Southeast Asia': '#ee6666',
+    'Eastern Europe': '#73c0de',
+    'Southern Europe': '#3ba272',
+    'North Africa': '#fc8452',
+    'East Africa': '#9a60b4',
+    'West Asia': '#ea7ccc',
+    'Southern Africa': '#2f4554' // 10th color
+  }
+
+  // Color palette for countries mapped from regions
+  const countryColors = {}
+  countries.forEach(c => {
+    countryColors[c.name] = regionColors[c.region]
+  })
+
+  // Fallback colors if needed
+  const defaultColors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc']
+
   // Helper to generate random data
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min
   const randomFloat = (min, max) => parseFloat((Math.random() * (max - min) + min).toFixed(2))
@@ -126,6 +149,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
     hoveredCountry,
     rawData,
     years,
+    countryColors, // Export colors
     currentYearData,
     getTrendData,
     getCountryTrend,

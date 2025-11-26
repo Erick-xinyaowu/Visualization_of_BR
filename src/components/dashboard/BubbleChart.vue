@@ -72,10 +72,15 @@ const option = computed(() => {
     },
     grid: {
       left: '8%',
-      top: '15%'
+      top: '15%',
+      right: '15%', // Add right padding for axis name
+      bottom: '10%', // Ensure bottom labels are visible
+      containLabel: true
     },
     xAxis: {
       name: 'Tech Index',
+      nameLocation: 'end', // Explicitly set location
+      nameGap: 10, // Adjust gap
       nameTextStyle: { color: '#fff' },
       splitLine: { lineStyle: { type: 'dashed', color: '#333' } },
       axisLabel: { color: '#fff' }

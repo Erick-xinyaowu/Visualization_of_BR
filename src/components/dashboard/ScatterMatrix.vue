@@ -20,8 +20,7 @@ const option = computed(() => {
       return {
         value: [item[xKey], item[yKey], item.projects, item.name, item.region],
         itemStyle: {
-          color: store.selectedCountries.includes(item.name) ? '#C4975B' : 
-                 (store.hoveredCountry === item.name ? '#E6B87D' : '#3498db'),
+          color: store.countryColors[item.name] || '#3498db',
           opacity: (store.selectedCountries.length > 0 && !store.selectedCountries.includes(item.name)) ? 0.1 : 0.7
         }
       }
@@ -44,22 +43,22 @@ const option = computed(() => {
       }
     },
     grid: [
-      { left: '7%', top: '15%', width: '38%', height: '35%' },
-      { right: '7%', top: '15%', width: '38%', height: '35%' },
-      { left: '7%', bottom: '7%', width: '38%', height: '35%' },
-      { right: '7%', bottom: '7%', width: '38%', height: '35%' }
+      { left: '12%', top: '15%', width: '35%', height: '28%' },
+      { right: '12%', top: '15%', width: '35%', height: '28%' },
+      { left: '12%', bottom: '18%', width: '35%', height: '28%' },
+      { right: '12%', bottom: '18%', width: '35%', height: '28%' }
     ],
     xAxis: [
-      { gridIndex: 0, name: 'Tech', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } },
-      { gridIndex: 1, name: 'Trade', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } },
-      { gridIndex: 2, name: 'Conn.', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } },
-      { gridIndex: 3, name: 'Culture', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } }
+      { gridIndex: 0, name: 'Tech', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9, rotate: 30, interval: 0 }, splitLine: { show: false } },
+      { gridIndex: 1, name: 'Trade', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9, rotate: 30, interval: 0 }, splitLine: { show: false } },
+      { gridIndex: 2, name: 'Conn.', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9, rotate: 30, interval: 0 }, splitLine: { show: false } },
+      { gridIndex: 3, name: 'Culture', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9, rotate: 30, interval: 0 }, splitLine: { show: false } }
     ],
     yAxis: [
-      { gridIndex: 0, name: 'Culture', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } },
-      { gridIndex: 1, name: 'Invest', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } },
-      { gridIndex: 2, name: 'Tech', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } },
-      { gridIndex: 3, name: 'Trade', nameTextStyle: { color: '#aaa' }, axisLabel: { color: '#aaa' }, splitLine: { show: false } }
+      { gridIndex: 0, name: 'Culture', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9 }, splitLine: { show: false } },
+      { gridIndex: 1, name: 'Invest', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9 }, splitLine: { show: false } },
+      { gridIndex: 2, name: 'Tech', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9 }, splitLine: { show: false } },
+      { gridIndex: 3, name: 'Trade', nameTextStyle: { color: '#aaa', fontSize: 10 }, axisLabel: { color: '#aaa', fontSize: 9 }, splitLine: { show: false } }
     ],
     series: [
       {

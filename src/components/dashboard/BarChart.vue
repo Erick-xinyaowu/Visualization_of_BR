@@ -19,22 +19,25 @@ const option = computed(() => {
     title: {
       text: '贸易额 Top 15 (百万美元)',
       left: 'center',
-      textStyle: { color: '#fff' }
+      top: 5,
+      textStyle: { color: '#fff', fontSize: 13 }
     },
     tooltip: {
       trigger: 'axis',
       axisPointer: { type: 'shadow' }
     },
     grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '3%',
+      left: '5%',
+      right: '5%',
+      top: '18%',
+      bottom: '25%',
       containLabel: true
     },
     xAxis: {
       type: 'category',
       data: data.map(i => i.name),
-      axisLabel: { color: '#fff', rotate: 45 }
+      axisLabel: { color: '#fff', rotate: 45, interval: 0 },
+      axisTick: { alignWithLabel: true }
     },
     yAxis: {
       type: 'value',
@@ -48,7 +51,7 @@ const option = computed(() => {
         data: data.map(item => ({
           value: item.tradeVolume,
           itemStyle: {
-            color: store.selectedCountries.includes(item.name) ? '#C4975B' : '#3498db',
+            color: store.countryColors[item.name] || '#3498db', // Use global color
             opacity: (store.selectedCountries.length > 0 && !store.selectedCountries.includes(item.name)) ? 0.3 : 1
           }
         }))

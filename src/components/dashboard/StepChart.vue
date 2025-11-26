@@ -22,7 +22,10 @@ const option = computed(() => {
         type: 'line',
         step: 'start',
         data: store.getCountryTrend(country, 'techIndex'),
-        smooth: false
+        smooth: false,
+        itemStyle: {
+          color: store.countryColors[country]
+        }
       })
     })
   } else {
@@ -39,21 +42,29 @@ const option = computed(() => {
 
   return {
     title: {
-      text: '科技合作指数演变 (Step Chart)',
+      text: '科技合作指数演变',
       left: 'center',
-      textStyle: { color: '#fff' }
+      top: 5,
+      textStyle: { color: '#fff', fontSize: 14 }
     },
     tooltip: {
       trigger: 'axis'
     },
     legend: {
-      bottom: 0,
-      textStyle: { color: '#fff' }
+      bottom: 5,
+      textStyle: { color: '#fff', fontSize: 10 }
+    },
+    grid: {
+      left: '8%',
+      right: '5%',
+      top: '20%',
+      bottom: '18%',
+      containLabel: true
     },
     xAxis: {
       type: 'category',
       data: years,
-      axisLabel: { color: '#fff' }
+      axisLabel: { color: '#fff', fontSize: 10 }
     },
     yAxis: {
       type: 'value',

@@ -44,9 +44,10 @@ const option = computed(() => {
       textStyle: { color: '#fff' }
     },
     grid: {
-      left: '3%',
-      right: '4%',
-      bottom: '10%',
+      left: '5%',
+      right: '5%',
+      bottom: '15%',
+      top: '15%',
       containLabel: true
     },
     xAxis: {
