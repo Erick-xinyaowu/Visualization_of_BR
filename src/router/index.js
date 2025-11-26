@@ -4,6 +4,7 @@ import MapPage from '../views/MapPage.vue'
 import NetworkPage from '../views/NetworkPage.vue'
 import TimelinePage from '../views/TimelinePage.vue'
 import AnimationPage from '../views/AnimationPage.vue'
+import DashboardPage from '../views/DashboardPage.vue'
 import About from '../views/About.vue'
 
 const routes = [
@@ -36,6 +37,12 @@ const routes = [
     name: 'AnimationPage',
     component: AnimationPage,
     meta: { title: '动画简介 - 丝路智汇' }
+  },
+  {
+    path: '/dashboard',
+    name: 'DashboardPage',
+    component: DashboardPage,
+    meta: { title: '多维协同分析 - 丝路智汇' }
   },
   {
     path: '/about',

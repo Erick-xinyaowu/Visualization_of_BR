@@ -40,7 +40,7 @@
         <h2 class="section-title">核心功能</h2>
       </div>
       <a-row :gutter="[32, 32]">
-        <a-col :xs="24" :sm="12" :lg="8">
+        <a-col :xs="24" :sm="12" :lg="6">
           <div class="feature-card-wrapper" @click="$router.push('/map')">
             <div class="feature-card-inner">
               <div class="feature-icon-box">
@@ -57,7 +57,7 @@
             </div>
           </div>
         </a-col>
-        <a-col :xs="24" :sm="12" :lg="8">
+        <a-col :xs="24" :sm="12" :lg="6">
           <div class="feature-card-wrapper" @click="$router.push('/network')">
             <div class="feature-card-inner">
               <div class="feature-icon-box">
@@ -74,7 +74,7 @@
             </div>
           </div>
         </a-col>
-        <a-col :xs="24" :sm="12" :lg="8">
+        <a-col :xs="24" :sm="12" :lg="6">
           <div class="feature-card-wrapper" @click="$router.push('/timeline')">
             <div class="feature-card-inner">
               <div class="feature-icon-box">
@@ -87,6 +87,23 @@
               <div class="feature-tags">
                 <span class="feature-tag">时间轴</span>
                 <span class="feature-tag">历史</span>
+              </div>
+            </div>
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="12" :lg="6">
+          <div class="feature-card-wrapper" @click="$router.push('/dashboard')">
+            <div class="feature-card-inner">
+              <div class="feature-icon-box">
+                <AppstoreOutlined />
+              </div>
+              <h3 class="feature-title">多维协同分析</h3>
+              <p class="feature-description">
+                通过多视图联动探索文化、科技、经贸等多维数据的深层关联与模式
+              </p>
+              <div class="feature-tags">
+                <span class="feature-tag">多视图</span>
+                <span class="feature-tag">交互分析</span>
               </div>
             </div>
           </div>
@@ -170,7 +187,8 @@ import {
   GlobalOutlined,
   ShareAltOutlined,
   HistoryOutlined,
-  PlayCircleOutlined
+  PlayCircleOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons-vue'
 </script>
 

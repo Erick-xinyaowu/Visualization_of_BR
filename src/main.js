@@ -16,7 +16,18 @@ import { use } from 'echarts/core'
 
 // 手动引入 ECharts 各模块
 import { CanvasRenderer } from 'echarts/renderers'
-import { LineChart, BarChart, ScatterChart, GraphChart, SankeyChart, LinesChart, EffectScatterChart } from 'echarts/charts'
+import { 
+  LineChart, 
+  BarChart, 
+  ScatterChart, 
+  GraphChart, 
+  SankeyChart, 
+  LinesChart, 
+  EffectScatterChart,
+  PieChart,
+  RadarChart,
+  FunnelChart
+} from 'echarts/charts'
 import {
   TitleComponent,
   TooltipComponent,
@@ -24,7 +35,9 @@ import {
   GridComponent,
   GeoComponent,
   TimelineComponent,
-  VisualMapComponent
+  VisualMapComponent,
+  DataZoomComponent,
+  BrushComponent
 } from 'echarts/components'
 
 use([
@@ -36,13 +49,18 @@ use([
   SankeyChart,
   LinesChart,
   EffectScatterChart,
+  PieChart,
+  RadarChart,
+  FunnelChart,
   TitleComponent,
   TooltipComponent,
   LegendComponent,
   GridComponent,
   GeoComponent,
   TimelineComponent,
-  VisualMapComponent
+  VisualMapComponent,
+  DataZoomComponent,
+  BrushComponent
 ])
 
 // Ant Design Vue 主题配置
