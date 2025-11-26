@@ -164,7 +164,7 @@ const chartOption = computed(() => ({
   }],
   geo: {
     map: 'world',
-    roam: true,
+    roam: false,
     zoom: 1.8, // 放大地图
     center: [70, 35], // 聚焦在亚洲/欧洲交界处
     label: {
@@ -189,7 +189,7 @@ const chartOption = computed(() => ({
     data: nodes,
     links: links,
     categories: categories,
-    roam: true, // 允许缩放和平移
+    roam: false, // 禁止缩放和平移
     label: {
       show: true,
       position: 'right',

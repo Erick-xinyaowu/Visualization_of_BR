@@ -228,7 +228,7 @@ function updateMapOption(activePeriod = 'All') {
         },
         geo: {
             map: 'world',
-            roam: true,
+            roam: false,
             zoom: 2.6,
             center: [74, 30],
             label: { emphasis: { show: false } },
@@ -350,7 +350,7 @@ function updateNetworkOption(activePeriod = 'All') {
             circular: { rotateLabel: true },
             data: nodes,
             links: links,
-            roam: true,
+            roam: false,
             label: { 
                 show: true, 
                 position: 'right', 

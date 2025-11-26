@@ -66,7 +66,7 @@ const chartOption = computed(() => ({
   },
   geo: {
     map: 'world',
-    roam: true,
+    roam: false,
     zoom: 1.2,
     center: [60, 35],
     label: {
