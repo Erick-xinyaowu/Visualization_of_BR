@@ -29,6 +29,12 @@
                 首页概览
               </router-link>
             </a-menu-item>
+            <a-menu-item key="/dashboard">
+              <router-link to="/dashboard">
+                <AppstoreOutlined />
+                数据表盘
+              </router-link>
+            </a-menu-item>
             <a-menu-item key="/map">
               <router-link to="/map">
                 <GlobalOutlined />
@@ -87,7 +93,8 @@ import {
   GlobalOutlined, 
   ShareAltOutlined, 
   HistoryOutlined, 
-  InfoCircleOutlined 
+  InfoCircleOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons-vue';
 
 const router = useRouter();
@@ -298,8 +305,9 @@ watch(
     min-width: auto;
   }
   
-  .nav-menu :deep(a span:last-child) {
+  /* 移除之前隐藏文字的样式 */
+  /* .nav-menu :deep(a span:last-child) {
     display: none;
-  }
+  } */
 }
 </style>
