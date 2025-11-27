@@ -16,7 +16,7 @@
           从张骞出使西域到"一带一路"倡议，见证东西方文明交流互鉴的辉煌历程。
         </p>
         <a-space :size="24" class="hero-buttons">
-          <a-button type="primary" size="large" class="btn-glow" @click="$router.push('/map')">
+          <a-button type="primary" size="large" class="btn-glow" @click="$router.push('/dashboard')">
             <template #icon><CompassOutlined /></template>
             开始探索
           </a-button>
