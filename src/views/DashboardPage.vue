@@ -141,25 +141,20 @@ onUnmounted(() => {
 
 <style scoped>
 .dashboard-page {
-  position: relative;
-  width: 100vw;
-  height: calc(100vw * 9 / 16);
-  max-width: calc(100vh * 16 / 9);
-  max-height: 100vh;
-  margin: auto;
-  overflow: hidden;
+  min-height: calc(100vh - 140px);
   background-color: #0f172a;
   color: #e2e8f0;
-  padding: 10px 20px;
+  padding: 16px 24px 32px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
   flex-direction: column;
+  gap: 16px;
 }
 
 .dashboard-header {
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   border-bottom: 1px solid #334155;
-  padding-bottom: 10px;
+  padding-bottom: 12px;
   flex-shrink: 0;
 }
 
@@ -167,11 +162,12 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
 }
 
 .header-content h1 {
   margin: 0;
-  font-size: 1.5rem; /* Smaller title */
+  font-size: 1.5rem;
   color: #C4975B;
   font-weight: 600;
 }
@@ -180,6 +176,7 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 15px;
+  flex-wrap: wrap;
 }
 
 .label {
@@ -189,17 +186,15 @@ onUnmounted(() => {
 .dashboard-grid {
   flex: 1;
   display: flex;
-  gap: 15px;
-  height: 100%;
-  min-height: 600px; /* 确保最小高度 */
-  overflow: hidden;
+  gap: 16px;
+  min-height: 0;
 }
 
 .grid-column {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  min-height: 600px; /* 确保列有最小高度 */
+  gap: 16px;
+  min-height: 0;
 }
 
 .left-col {
@@ -216,22 +211,22 @@ onUnmounted(() => {
 
 .grid-item {
   background: #1e293b;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.35);
   border: 1px solid #334155;
   position: relative;
-  min-height: 200px; /* 确保最小高度 */
+  min-height: 220px;
 }
 
 .small-card {
   flex: 1;
-  min-height: 250px; /* 小卡片最小高度 */
+  min-height: 260px;
 }
 
 .main-card {
-  flex: 2; /* Takes more space */
-  min-height: 400px; /* 主卡片最小高度 */
+  flex: 2;
+  min-height: 420px;
 }
 
 .play-btn {
@@ -244,5 +239,83 @@ onUnmounted(() => {
   border-color: #40a9ff !important;
 }
 
-/* 16:9自适应方案，无需响应式断点 */
+@media (max-width: 1440px) {
+  .dashboard-grid {
+    flex-direction: column;
+  }
+
+  .grid-column {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .grid-item {
+    flex: 1 1 calc(50% - 16px);
+  }
+
+  .main-card {
+    flex-basis: 100%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .grid-column {
+    flex-direction: column;
+  }
+
+  .grid-item {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .dashboard-page {
+    padding: 12px 16px 24px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid-item {
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 8px 12px 20px;
+  }
+
+  .dashboard-grid {
+    gap: 12px;
+  }
+
+  .grid-column {
+    gap: 12px;
+  }
+
+  .controls {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .play-btn,
+  .controls :deep(.ant-btn) {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-content h1 {
+    font-size: 1.2rem;
+  }
+}
 </style>

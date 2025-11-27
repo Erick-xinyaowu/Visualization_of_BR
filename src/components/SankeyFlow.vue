@@ -1,6 +1,6 @@
 <template>
   <div class="sankey-container">
-    <v-chart ref="chartRef" :option="chartOption" :style="{ height: '600px', width: '100%' }" autoresize />
+    <v-chart ref="chartRef" class="sankey-chart" :option="chartOption" autoresize />
   </div>
 </template>
 
@@ -140,5 +140,16 @@ const chartOption = computed(() => ({
   padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   border: 1px solid rgba(0,0,0,0.05);
+}
+
+.sankey-chart {
+  width: 100%;
+  height: clamp(320px, 60vh, 640px);
+}
+
+@media (max-width: 768px) {
+  .sankey-chart {
+    height: 340px;
+  }
 }
 </style>

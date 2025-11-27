@@ -1,6 +1,6 @@
 <template>
   <div class="timeline-container">
-    <v-chart ref="chartRef" :option="chartOption" :style="{ height: '600px', width: '100%' }" autoresize />
+    <v-chart ref="chartRef" class="timeline-chart" :option="chartOption" autoresize />
   </div>
 </template>
 
@@ -170,6 +170,16 @@ const chartOption = computed(() => ({
   background: #FBFBFD;
   border-radius: 16px;
   padding: 1rem;
-  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
+}
+
+.timeline-chart {
+  width: 100%;
+  height: clamp(320px, 60vh, 640px);
+}
+
+@media (max-width: 768px) {
+  .timeline-chart {
+    height: 340px;
+  }
 }
 </style>

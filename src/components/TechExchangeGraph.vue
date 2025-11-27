@@ -1,6 +1,6 @@
 <template>
   <div class="graph-container">
-    <v-chart ref="chartRef" :option="chartOption" :style="{ height: '700px', width: '100%' }" autoresize />
+    <v-chart ref="chartRef" class="graph-chart" :option="chartOption" autoresize />
   </div>
 </template>
 
@@ -224,5 +224,16 @@ const chartOption = computed(() => ({
   border: 1px solid rgba(0,0,0,0.05);
   position: relative;
   overflow: hidden;
+}
+
+.graph-chart {
+  width: 100%;
+  height: clamp(320px, 65vh, 720px);
+}
+
+@media (max-width: 768px) {
+  .graph-chart {
+    height: 360px;
+  }
 }
 </style>

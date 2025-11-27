@@ -639,4 +639,59 @@ onUnmounted(() => {
   color: #d4af37;
   background: rgba(0,0,0,0.05);
 }
+
+@media (max-width: 900px) {
+  #main-title h1 {
+    font-size: 2rem;
+  }
+
+  .info-card {
+    width: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cinematic-bar.top {
+    height: 14vh;
+  }
+
+  .cinematic-bar.bottom {
+    padding: 12px;
+  }
+
+  .info-card {
+    width: calc(100% - 48px);
+    max-width: 320px;
+    position: relative;
+    top: auto !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, 0);
+    margin-bottom: 12px;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  #main-title h1 {
+    font-size: 1.6rem;
+  }
+
+  #main-title h2 {
+    font-size: 0.85rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .info-card {
+    padding: 16px;
+    font-size: 0.85rem;
+  }
+}
 </style>

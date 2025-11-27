@@ -497,7 +497,7 @@ onUnmounted(() => {
 <style scoped>
 .map-page {
   width: 100%;
-  height: calc(100vh - 64px);
+  min-height: calc(100vh - 64px);
   padding: 1rem;
   display: flex;
   flex-direction: column;
@@ -604,17 +604,16 @@ onUnmounted(() => {
   grid-row: 2 / 3;
 }
 
-/* 响应式 - 禁用移动端适配 */
-@media (max-width: 0px) {
+@media (max-width: 1024px) {
   .map-page {
-    height: auto;
-    overflow-y: auto;
-    padding: 0.5rem;
+    min-height: auto;
+    overflow: visible;
+    padding: 0.75rem;
   }
-  
+
   .grid-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 500px 350px 250px;
+    grid-template-rows: minmax(420px, 1fr) minmax(320px, auto) minmax(260px, auto);
     height: auto;
     gap: 12px;
   }
@@ -627,6 +626,7 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .map-page {
     padding: 0.25rem;
+    overflow: visible;
   }
   
   .dashboard-header {
@@ -645,8 +645,8 @@ onUnmounted(() => {
   }
   
   .grid-container {
-    grid-template-rows: 400px 300px 220px;
-    gap: 8px;
+    grid-template-rows: 360px 280px 220px;
+    gap: 10px;
   }
   
   .card-title-text {
@@ -665,7 +665,7 @@ onUnmounted(() => {
   }
   
   .grid-container {
-    grid-template-rows: 350px 280px 200px;
+    grid-template-rows: 320px 260px 200px;
   }
   
   .period-watermark {

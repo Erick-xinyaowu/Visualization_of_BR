@@ -72,13 +72,13 @@
           </a-menu>
 
           <!-- 移动端抽屉导航 -->
-          <a-drawer
-            v-model:open="drawerVisible"
-            placement="right"
-            :closable="false"
-            :width="280"
-            class="mobile-drawer"
-          >
+                  <a-drawer
+                    v-model:open="drawerVisible"
+                    placement="right"
+                    :closable="false"
+                    :width="drawerWidth"
+                    class="mobile-drawer"
+                  >
             <a-menu
               v-model:selectedKeys="selectedKeys"
               mode="vertical"
@@ -148,7 +148,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted, onUnmounted } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { theme } from 'ant-design-vue';
 import { 
@@ -165,6 +165,7 @@ const router = useRouter();
 const route = useRoute();
 const selectedKeys = ref(['/']);
 const drawerVisible = ref(false);
+const drawerWidth = ref(320);
 
 // 自定义主题 Token - 亮色高级感
 const themeToken = {
@@ -183,6 +184,26 @@ watch(
   },
   { immediate: true }
 );
+
+const updateDrawerWidth = () => {
+  const width = window.innerWidth;
+  if (width <= 480) {
+    drawerWidth.value = Math.max(260, width * 0.9);
+  } else if (width <= 768) {
+    drawerWidth.value = 320;
+  } else {
+    drawerWidth.value = 360;
+  }
+};
+
+onMounted(() => {
+  updateDrawerWidth();
+  window.addEventListener('resize', updateDrawerWidth);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateDrawerWidth);
+});
 </script>
 
 <style scoped>
@@ -274,6 +295,11 @@ watch(
   justify-content: flex-end;
 }
 
+.desktop-menu {
+  display: flex;
+  flex: 1;
+}
+
 .nav-menu :deep(.ant-menu-item) {
   color: #86868B;
   font-size: 14px;
@@ -306,6 +332,7 @@ watch(
 /* 内容区域 */
 .content-wrapper {
   margin-top: 72px;
+  padding: 24px 24px 40px;
   min-height: calc(100vh - 72px - 200px);
 }
 
@@ -357,6 +384,7 @@ watch(
   display: none;
   padding: 4px 8px;
   height: auto;
+  align-items: center;
 }
 
 /* 移动端导航菜单样式 */
@@ -387,50 +415,52 @@ watch(
   font-size: 18px;
 }
 
-/* 响应式调整 - 禁用移动端适配 */
-@media (max-width: 0px) {
-  /* 永远不触发移动端样式 */
-  .desktop-menu {
-    display: none !important;
-  }
-  
-  .mobile-menu-btn {
-    display: block;
-  }
-}
-
-@media (max-width: 0px) {
+@media (max-width: 1024px) {
   .header {
-    height: 60px;
+    height: 64px;
   }
-  
+
   .header-content {
     padding: 0 16px;
   }
-  
+
   .content-wrapper {
-    margin-top: 60px;
-    padding: 12px;
+    margin-top: 64px;
+    padding: 16px 16px 32px;
   }
-  
+
+  .desktop-menu {
+    display: none;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: 60px;
+  }
+
   .logo-seal {
     width: 36px;
     height: 36px;
     font-size: 16px;
   }
-  
+
   .logo-main {
     font-size: 18px;
   }
-  
+
   .logo-sub {
     display: none;
   }
-  
+
   .site-footer {
     padding: 40px 16px;
   }
-  
+
   .footer-logo {
     font-size: 20px;
   }
@@ -440,18 +470,18 @@ watch(
   .header {
     height: 56px;
   }
-  
+
   .content-wrapper {
     margin-top: 56px;
-    padding: 8px;
+    padding: 12px;
   }
-  
+
   .logo-seal {
     width: 32px;
     height: 32px;
     font-size: 14px;
   }
-  
+
   .logo-main {
     font-size: 16px;
   }
