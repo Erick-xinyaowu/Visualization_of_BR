@@ -472,23 +472,121 @@ import {
 }
 
 /* 响应式 */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .hero-title {
-    font-size: 3rem;
+    font-size: 3.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .home-page {
+    padding: 0;
+  }
+  
+  .hero-section {
+    min-height: 60vh;
+    padding: 60px 20px 40px;
+  }
+  
+  .hero-title {
+    font-size: 2.5rem;
     flex-direction: column;
+    gap: 8px;
   }
   
   .title-seal {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-bottom: 0.5rem;
   }
   
   .hero-subtitle {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .hero-description {
+    font-size: 0.95rem;
+    max-width: 100%;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  
+  .cta-btn {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 40px 20px;
   }
   
   .stat-value {
-    font-size: 2.5rem;
+    font-size: 2rem;
+  }
+  
+  .features-section {
+    padding: 40px 20px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .title-seal {
+    font-size: 1.6rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+  
+  .hero-description {
+    font-size: 0.9rem;
+  }
+  
+  .stat-value {
+    font-size: 1.8rem;
+  }
+  
+  .stat-label {
+    font-size: 0.85rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+  
+  .feature-card {
+    padding: 20px;
+  }
+  
+  .feature-icon {
+    font-size: 2rem;
+  }
+  
+  .feature-title {
+    font-size: 1.1rem;
   }
 }
 </style>

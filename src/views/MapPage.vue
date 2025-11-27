@@ -609,17 +609,69 @@ onUnmounted(() => {
   .map-page {
     height: auto;
     overflow-y: auto;
+    padding: 0.5rem;
   }
   
   .grid-container {
     grid-template-columns: 1fr;
-    grid-template-rows: 600px 400px 300px;
+    grid-template-rows: 500px 350px 250px;
     height: auto;
+    gap: 12px;
   }
 
   #map-view { grid-column: 1; grid-row: 1; }
   #network-view { grid-column: 1; grid-row: 2; }
   #timeline-view { grid-column: 1; grid-row: 3; }
+}
+
+@media (max-width: 768px) {
+  .map-page {
+    padding: 0.25rem;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .page-title {
+    font-size: 1.3rem;
+  }
+  
+  .page-subtitle {
+    font-size: 0.75rem;
+  }
+  
+  .grid-container {
+    grid-template-rows: 400px 300px 220px;
+    gap: 8px;
+  }
+  
+  .card-title-text {
+    font-size: 0.7rem;
+  }
+  
+  .control-btn {
+    font-size: 12px;
+    padding: 4px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.1rem;
+  }
+  
+  .grid-container {
+    grid-template-rows: 350px 280px 200px;
+  }
+  
+  .period-watermark {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
 }
 
 .control-btn {

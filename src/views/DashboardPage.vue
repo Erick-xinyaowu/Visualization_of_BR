@@ -238,12 +238,69 @@ onUnmounted(() => {
   .dashboard-page {
     height: auto;
     overflow-y: auto;
+    padding: 8px 12px;
   }
   .dashboard-grid {
     flex-direction: column;
+    gap: 12px;
   }
   .grid-item {
+    height: 350px;
+  }
+  .dashboard-header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-page {
+    padding: 8px;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  
+  .header-content h1 {
+    font-size: 1.1rem;
+  }
+  
+  .controls {
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .grid-item {
     height: 300px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-page {
+    padding: 4px;
+  }
+  
+  .header-content h1 {
+    font-size: 1rem;
+  }
+  
+  .play-btn,
+  .controls button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+  
+  .grid-item {
+    height: 250px;
   }
 }
 </style>

@@ -17,10 +17,20 @@
             </div>
           </div>
           
+          <!-- 移动端汉堡菜单按钮 -->
+          <a-button 
+            class="mobile-menu-btn" 
+            type="text" 
+            @click="drawerVisible = true"
+          >
+            <MenuOutlined :style="{ fontSize: '20px', color: '#2C5578' }" />
+          </a-button>
+
+          <!-- 桌面端导航菜单 -->
           <a-menu
             v-model:selectedKeys="selectedKeys"
             mode="horizontal"
-            class="nav-menu"
+            class="nav-menu desktop-menu"
             :style="{ lineHeight: '72px', borderBottom: 'none' }"
           >
             <a-menu-item key="/">
@@ -60,6 +70,59 @@
               </router-link>
             </a-menu-item>
           </a-menu>
+
+          <!-- 移动端抽屉导航 -->
+          <a-drawer
+            v-model:open="drawerVisible"
+            placement="right"
+            :closable="false"
+            :width="280"
+            class="mobile-drawer"
+          >
+            <a-menu
+              v-model:selectedKeys="selectedKeys"
+              mode="vertical"
+              class="mobile-nav-menu"
+              @click="drawerVisible = false"
+            >
+              <a-menu-item key="/">
+                <router-link to="/">
+                  <HomeOutlined />
+                  <span>首页概览</span>
+                </router-link>
+              </a-menu-item>
+              <a-menu-item key="/dashboard">
+                <router-link to="/dashboard">
+                  <AppstoreOutlined />
+                  <span>数据表盘</span>
+                </router-link>
+              </a-menu-item>
+              <a-menu-item key="/map">
+                <router-link to="/map">
+                  <GlobalOutlined />
+                  <span>丝路地图</span>
+                </router-link>
+              </a-menu-item>
+              <a-menu-item key="/network">
+                <router-link to="/network">
+                  <ShareAltOutlined />
+                  <span>贸易网络</span>
+                </router-link>
+              </a-menu-item>
+              <a-menu-item key="/timeline">
+                <router-link to="/timeline">
+                  <HistoryOutlined />
+                  <span>历史长河</span>
+                </router-link>
+              </a-menu-item>
+              <a-menu-item key="/about">
+                <router-link to="/about">
+                  <InfoCircleOutlined />
+                  <span>关于项目</span>
+                </router-link>
+              </a-menu-item>
+            </a-menu>
+          </a-drawer>
         </div>
       </a-layout-header>
 
@@ -94,12 +157,14 @@ import {
   ShareAltOutlined, 
   HistoryOutlined, 
   InfoCircleOutlined,
-  AppstoreOutlined
+  AppstoreOutlined,
+  MenuOutlined
 } from '@ant-design/icons-vue';
 
 const router = useRouter();
 const route = useRoute();
 const selectedKeys = ref(['/']);
+const drawerVisible = ref(false);
 
 // 自定义主题 Token - 亮色高级感
 const themeToken = {
@@ -287,27 +352,107 @@ watch(
   transform: scale(1.02);
 }
 
+/* 移动端汉堡菜单按钮 */
+.mobile-menu-btn {
+  display: none;
+  padding: 4px 8px;
+  height: auto;
+}
+
+/* 移动端导航菜单样式 */
+.mobile-nav-menu {
+  border: none;
+}
+
+.mobile-nav-menu :deep(.ant-menu-item) {
+  padding: 16px 20px;
+  font-size: 16px;
+  height: auto;
+  line-height: 1.5;
+  margin: 4px 0;
+}
+
+.mobile-nav-menu :deep(.ant-menu-item-selected) {
+  background: rgba(44, 85, 120, 0.1);
+  color: #2C5578;
+}
+
+.mobile-nav-menu :deep(a) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mobile-nav-menu :deep(.anticon) {
+  font-size: 18px;
+}
+
 /* 响应式调整 */
+@media (max-width: 992px) {
+  .desktop-menu {
+    display: none !important;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
 @media (max-width: 768px) {
   .header {
-    height: 64px;
+    height: 60px;
+  }
+  
+  .header-content {
+    padding: 0 16px;
   }
   
   .content-wrapper {
-    margin-top: 64px;
+    margin-top: 60px;
+    padding: 12px;
+  }
+  
+  .logo-seal {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+  
+  .logo-main {
+    font-size: 18px;
   }
   
   .logo-sub {
     display: none;
   }
   
-  .nav-menu {
-    min-width: auto;
+  .site-footer {
+    padding: 40px 16px;
   }
   
-  /* 移除之前隐藏文字的样式 */
-  /* .nav-menu :deep(a span:last-child) {
-    display: none;
-  } */
+  .footer-logo {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    height: 56px;
+  }
+  
+  .content-wrapper {
+    margin-top: 56px;
+    padding: 8px;
+  }
+  
+  .logo-seal {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+  
+  .logo-main {
+    font-size: 16px;
+  }
 }
 </style>
