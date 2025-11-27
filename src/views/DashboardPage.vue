@@ -95,8 +95,11 @@ let playInterval = null
 
 onMounted(() => {
   // Auto-play on load
-  isPlaying.value = true
-  startPlay()
+  // 延迟启动以确保图表渲染完成
+  setTimeout(() => {
+    isPlaying.value = true
+    startPlay()
+  }, 500)
 })
 
 function handleYearChange(val) {
@@ -139,6 +142,7 @@ onUnmounted(() => {
 <style scoped>
 .dashboard-page {
   height: 100vh; /* Fixed height */
+  min-height: 800px; /* 确保最小高度 */
   overflow: hidden; /* No scroll */
   background-color: #0f172a;
   color: #e2e8f0;
@@ -183,6 +187,7 @@ onUnmounted(() => {
   display: flex;
   gap: 15px;
   height: 100%;
+  min-height: 600px; /* 确保最小高度 */
   overflow: hidden;
 }
 
@@ -190,6 +195,7 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  min-height: 600px; /* 确保列有最小高度 */
 }
 
 .left-col {
@@ -211,16 +217,17 @@ onUnmounted(() => {
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   border: 1px solid #334155;
   position: relative;
+  min-height: 200px; /* 确保最小高度 */
 }
 
 .small-card {
   flex: 1;
-  min-height: 0; /* Allow shrinking */
+  min-height: 250px; /* 小卡片最小高度 */
 }
 
 .main-card {
   flex: 2; /* Takes more space */
-  min-height: 0;
+  min-height: 400px; /* 主卡片最小高度 */
 }
 
 .play-btn {
