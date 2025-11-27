@@ -5,9 +5,24 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const chartRef = ref(null)
+const isCompact = ref(false)
+
+const updateCompactFlag = () => {
+  if (typeof window === 'undefined') return
+  isCompact.value = window.innerWidth <= 768
+}
+
+onMounted(() => {
+  updateCompactFlag()
+  window.addEventListener('resize', updateCompactFlag)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateCompactFlag)
+})
 
 // 示例数据 - 丝绸之路历史时间线数据
 const timelineData = [
@@ -60,15 +75,16 @@ const chartOption = computed(() => ({
   legend: {
     data: categories.map(c => c.name),
     bottom: 10,
+    show: !isCompact.value,
     textStyle: {
       color: '#2C3E50'
     }
   },
   grid: {
-    left: '10%',
-    right: '10%',
-    bottom: '15%',
-    top: '15%',
+    left: isCompact.value ? '6%' : '10%',
+    right: isCompact.value ? '6%' : '10%',
+    bottom: isCompact.value ? '20%' : '15%',
+    top: isCompact.value ? 40 : '15%',
     containLabel: true
   },
   xAxis: {
@@ -78,8 +94,8 @@ const chartOption = computed(() => ({
       return year < 0 ? `公元前${Math.abs(year)}` : `公元${year}`
     }),
     axisLabel: {
-      rotate: 45,
-      fontSize: 11,
+      rotate: isCompact.value ? 60 : 45,
+      fontSize: isCompact.value ? 10 : 11,
       color: '#2C3E50'
     },
     axisLine: {
@@ -117,9 +133,9 @@ const chartOption = computed(() => ({
           shadowColor: 'rgba(0,0,0,0.2)'
         }
       })),
-      symbolSize: (val) => val[1] * 0.5,
+      symbolSize: (val) => (isCompact.value ? val[1] * 0.35 : val[1] * 0.5),
       label: {
-        show: true,
+        show: !isCompact.value,
         formatter: (params) => params.data.event,
         position: 'top',
         fontSize: 12,

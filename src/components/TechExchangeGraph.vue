@@ -5,11 +5,26 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import * as echarts from 'echarts'
 import worldJson from '../assets/map/world.json'
 
 const chartRef = ref(null)
+const isCompact = ref(false)
+
+const updateCompactFlag = () => {
+  if (typeof window === 'undefined') return
+  isCompact.value = window.innerWidth <= 900
+}
+
+onMounted(() => {
+  updateCompactFlag()
+  window.addEventListener('resize', updateCompactFlag)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', updateCompactFlag)
+})
 
 // 注册地图
 echarts.registerMap('world', worldJson)
@@ -57,11 +72,10 @@ const rawNodes = [
   { name: '法国', value: 75, category: 4 }
 ]
 
-const nodes = rawNodes.map(node => ({
+const responsiveNodes = computed(() => rawNodes.map(node => ({
   ...node,
-  // value 格式: [经度, 纬度, 数值]
   value: geoCoordMap[node.name] ? [...geoCoordMap[node.name], node.value] : [0, 0, node.value],
-  symbolSize: node.value * 0.4 + 10, // 调整节点大小
+  symbolSize: (isCompact.value ? node.value * 0.3 + 8 : node.value * 0.4 + 10),
   itemStyle: {
     color: categoryColors[node.category] || '#2C5578',
     borderColor: '#fff',
@@ -70,17 +84,17 @@ const nodes = rawNodes.map(node => ({
     shadowColor: 'rgba(0, 0, 0, 0.3)'
   },
   label: {
-    show: true,
+    show: !isCompact.value,
     position: 'right',
     formatter: '{b}',
-    fontSize: 12,
+    fontSize: isCompact.value ? 10 : 12,
     color: '#333',
     fontWeight: 'bold',
     backgroundColor: 'rgba(255,255,255,0.7)',
     padding: [2, 4],
     borderRadius: 4
   }
-}))
+})))
 
 const links = [
   { source: '中国', target: '俄罗斯', value: 90 },
@@ -100,15 +114,17 @@ const links = [
   { source: '巴基斯坦', target: '沙特阿拉伯', value: 40 },
   { source: '新加坡', target: '马来西亚', value: 55 },
   { source: '德国', target: '法国', value: 70 }
-].map(link => ({
+]
+
+const responsiveLinks = computed(() => links.map(link => ({
   ...link,
   lineStyle: {
-    width: link.value / 20, // 边粗细基于数值
+    width: link.value / (isCompact.value ? 28 : 20),
     curveness: 0.2,
-    color: '#B49356', // 统一金色连线
-    opacity: 0.6
+    color: '#B49356',
+    opacity: 0.55
   }
-}))
+})))
 
 const categories = [
   { name: '核心国家' },
@@ -165,7 +181,7 @@ const chartOption = computed(() => ({
   geo: {
     map: 'world',
     roam: false,
-    zoom: 1.8, // 放大地图
+    zoom: isCompact.value ? 1.35 : 1.8,
     center: [70, 35], // 聚焦在亚洲/欧洲交界处
     label: {
       emphasis: {
@@ -186,14 +202,14 @@ const chartOption = computed(() => ({
   series: [{
     type: 'graph',
     coordinateSystem: 'geo', // 使用地理坐标系
-    data: nodes,
-    links: links,
+    data: responsiveNodes.value,
+    links: responsiveLinks.value,
     categories: categories,
     roam: false, // 禁止缩放和平移
     label: {
-      show: true,
+      show: !isCompact.value,
       position: 'right',
-      fontSize: 12,
+      fontSize: isCompact.value ? 10 : 12,
       fontFamily: '"Source Han Sans CN", sans-serif'
     },
     labelLayout: {
