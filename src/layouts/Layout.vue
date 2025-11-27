@@ -140,7 +140,8 @@
         <div class="footer-content">
           <div class="footer-logo">丝路智汇</div>
           <p class="footer-desc">传承丝路精神 · 展现数据之美</p>
-          <p class="copyright">©2024 Visualization Team. All Rights Reserved.</p>
+          <p class="copyright">©2025 Erick Wu(wxy2023@whu.edu.cn)</p>
+          <p class="copyright">All Rights Reserved.</p>
         </div>
       </a-layout-footer>
     </a-layout>
