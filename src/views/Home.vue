@@ -471,8 +471,8 @@ import {
   font-weight: 500;
 }
 
-/* 响应式 */
-@media (max-width: 992px) {
+/* 响应式 - 禁用移动端适配 */
+@media (max-width: 0px) {
   .hero-title {
     font-size: 3.5rem;
   }

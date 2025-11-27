@@ -233,8 +233,8 @@ onUnmounted(() => {
   border-color: #40a9ff !important;
 }
 
-/* Responsive fallback */
-@media (max-width: 1200px) {
+/* Responsive fallback - 禁用移动端适配 */
+@media (max-width: 0px) {
   .dashboard-page {
     height: auto;
     overflow-y: auto;

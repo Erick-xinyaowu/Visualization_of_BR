@@ -387,8 +387,9 @@ watch(
   font-size: 18px;
 }
 
-/* 响应式调整 */
-@media (max-width: 992px) {
+/* 响应式调整 - 禁用移动端适配 */
+@media (max-width: 0px) {
+  /* 永远不触发移动端样式 */
   .desktop-menu {
     display: none !important;
   }
@@ -398,7 +399,7 @@ watch(
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 0px) {
   .header {
     height: 60px;
   }

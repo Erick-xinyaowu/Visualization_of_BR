@@ -604,8 +604,8 @@ onUnmounted(() => {
   grid-row: 2 / 3;
 }
 
-/* 响应式 */
-@media (max-width: 1200px) {
+/* 响应式 - 禁用移动端适配 */
+@media (max-width: 0px) {
   .map-page {
     height: auto;
     overflow-y: auto;
